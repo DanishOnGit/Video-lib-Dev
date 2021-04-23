@@ -1,6 +1,5 @@
 import "./styles.css";
-import { Navbar, Home, LikedVideos,WatchLater,WatchHistory,Playlists} from "./Components";
-import { VideoPlayer } from "./Components";
+import { Navbar, Home, LikedVideos,WatchLater,WatchHistory,Playlists,VideoPlayer} from "./Components";
 import { Routes, Route } from "react-router-dom";
 
 export default function App() {

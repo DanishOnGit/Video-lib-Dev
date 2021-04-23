@@ -42,7 +42,7 @@ export function PlaylistModal({display,setDisplay,videoDetails}) {
           </ul>
        <div>
          <input value={playlistName} onChange={(e)=>setPlaylistName(e.target.value)} type="text" placeholder="Add new playlist" />
-         <button  onClick={()=>createNewPlaylist(playlistName)} className="btn btn-primary"><i className="fas fa-plus"></i></button>
+         <button disabled={playlistName===""?true:false}  onClick={()=>createNewPlaylist(playlistName)} className="btn btn-primary"><i className="fas fa-plus"></i></button>
          
          </div>
       </div>
