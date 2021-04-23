@@ -50,7 +50,7 @@ export function PlaylistModal({display,setDisplay,videoDetails}) {
         <button onClick={()=>setDisplay("none")} className="btn btn-outline-secondary" id="closeMe">
           Close
         </button>
-        {/* <button onClick={()=>setDisplay("none")} className="btn btn-primary">Add</button> */}
+        
       </div>
     </div>
   );
