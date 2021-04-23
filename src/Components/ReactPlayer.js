@@ -21,7 +21,7 @@ export const VideoPlayer = () => {
     <>
     <div className="video-player-wrapper">
       <PlaylistModal display={display} setDisplay={setDisplay} videoDetails={videoDetails} />
-      <ReactPlayer className="video-player" onStart={()=>!checkIfAlreadyPresent(historyVideos,videoId)?dispatch({type:"ADD_TO_HISTORY",payload:videoDetails}):null}
+      <ReactPlayer width="100%" height="100%" onStart={()=>!checkIfAlreadyPresent(historyVideos,videoId)?dispatch({type:"ADD_TO_HISTORY",payload:videoDetails}):null}
         controls={true}
         url={`https://www.youtube.com/watch?${videoId}`}
       />
