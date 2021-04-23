@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-export function Navbar() {
+export const Navbar = () => {
   return (
     <div>
       <nav className="nav-wrapper-3">
@@ -8,8 +8,6 @@ export function Navbar() {
             <div className="brand">One-View</div>
           </NavLink>
         </div>
-        
-        
       </nav>
     </div>
   );

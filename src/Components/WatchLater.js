@@ -17,7 +17,7 @@ export const WatchLater = () => {
             <Link to={`/video/${item.id}`}>
               {" "}
               <img
-                style={{ width: "100%", height: "50%" }}
+                className="thumbnail-img"
                 src={item.thumbnail}
                 alt="thumbnail"
               />{" "}
