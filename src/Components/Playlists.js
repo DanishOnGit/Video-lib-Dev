@@ -7,6 +7,8 @@ export const Playlists =()=>{
   } = useVideo();
 
   return (
+    <>
+    {playlists.length===0 && <h1 className="empty-state">No Playlists added!</h1>}
     <div className="playlists-wrapper">
       {playlists.map((playlist) => {
         return (
@@ -48,5 +50,6 @@ export const Playlists =()=>{
         );
       })}
     </div>
+    </>
   );
 }

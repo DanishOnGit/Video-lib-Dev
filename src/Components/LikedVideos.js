@@ -13,29 +13,34 @@ export const LikedVideos = () => {
   const filterLikedVideos = getFilteredVideos(likedVideos);
 
   return (
-    <div className="liked-videos-wrapper">
-      {filterLikedVideos.map((item) => {
-        return (
-          <div className="video-item" key={item.id}>
-            <Link to={`/video/${item.id}`}>
-              {" "}
-              <img
-                className="thumbnail-img"
-                src={item.thumbnail}
-                alt="thumbnail"
-              />{" "}
-            </Link>
-            <div className="video-description">
-              <div class="avatar-wrapper-small">
-                <img class="avatar-small" src={item.avatar} alt="avatar" />
+    <>
+      {likedVideos.length === 0 && (
+        <h1 className="empty-state">No Liked Videos yet!</h1>
+      )}
+      <div className="liked-videos-wrapper">
+        {filterLikedVideos.map((item) => {
+          return (
+            <div className="video-item" key={item.id}>
+              <Link to={`/video/${item.id}`}>
+                {" "}
+                <img
+                  className="thumbnail-img"
+                  src={item.thumbnail}
+                  alt="thumbnail"
+                />{" "}
+              </Link>
+              <div className="video-description">
+                <div class="avatar-wrapper-small">
+                  <img class="avatar-small" src={item.avatar} alt="avatar" />
+                </div>
+                <h4>{item.videoTitle}</h4>
+                <p className="small">{item.channelName}</p>
+                <p>{item.level}</p>
               </div>
-              <h4>{item.videoTitle}</h4>
-              <p className="small">{item.channelName}</p>
-              <p>{item.level}</p>
             </div>
-          </div>
-        );
-      })}
-    </div>
+          );
+        })}
+      </div>
+    </>
   );
 };

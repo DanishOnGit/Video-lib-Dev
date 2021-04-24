@@ -10,6 +10,8 @@ export const WatchLater = () => {
   const filteredWatchLaterVideos = getFilteredVideos(watchLaterVideos);
 
   return (
+    <>
+    {watchLaterVideos.length===0 && <h1 className="empty-state">All caught up!</h1>}  
     <div className="watch-later-videos-wrapper">
       {filteredWatchLaterVideos.map((item) => {
         return (
@@ -34,5 +36,6 @@ export const WatchLater = () => {
         );
       })}
     </div>
+    </>
   );
 };
