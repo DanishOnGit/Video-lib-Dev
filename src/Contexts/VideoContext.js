@@ -36,14 +36,34 @@ export const VideoProvider = ({ children }) => {
       }
 
       case "ADD_TO_WATCH_LATER": {
-        return {
-          ...state,
-          watchLaterVideos: [
-            ...state.watchLaterVideos,
-            { ...action.payload, existsInWatchLaterVideos: true }
-          ]
-        };
+        const result = checkIfAlreadyPresent(
+          state.watchLaterVideos,
+          action.payload.id
+        );
+        if (!result) {
+          return {
+            ...state,
+            watchLaterVideos: [
+              ...state.watchLaterVideos,
+              { ...action.payload, existsInwatchLaterVideos: true }
+            ]
+          };
+        } else {
+          return {
+            ...state,
+            watchLaterVideos: state.watchLaterVideos.map((item) => {
+              if (item.id === action.payload.id) {
+                return {
+                  ...item,
+                  existsInWatchLaterVideos: !item.existsInWatchLaterVideos
+                };
+              }
+              return item;
+            })
+          };
+        }
       }
+
 
       case "ADD_TO_HISTORY": {
         return {

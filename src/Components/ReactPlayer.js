@@ -20,6 +20,10 @@ export const VideoPlayer = () => {
     const result = checkIfAlreadyPresent(likedVideos, videoId);
     return result?.existsInLikedVideos ? "white" : "grey";
   }
+  function toggleWatchLaterColor() {
+    const result = checkIfAlreadyPresent(watchLaterVideos, videoId);
+    return result?.existsInWatchLaterVideos ? "white" : "grey";
+  }
 
   const videoDetails = allVideos.find((item) => item.id === videoId);
 
@@ -65,14 +69,13 @@ export const VideoPlayer = () => {
               <li>
                 <i
                   onClick={() =>
-                    !checkIfAlreadyPresent(watchLaterVideos, videoId)
-                      ? dispatch({
-                          type: "ADD_TO_WATCH_LATER",
-                          payload: videoDetails
-                        })
-                      : null
+                    dispatch({
+                      type: "ADD_TO_WATCH_LATER",
+                      payload: videoDetails
+                    })
                   }
                   className="fas fa-clock pointer"
+                  style={{ color: toggleWatchLaterColor() }}
                 ></i>
               </li>
             </ul>
