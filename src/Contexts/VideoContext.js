@@ -1,5 +1,5 @@
 import { createContext, useContext, useReducer } from "react";
-import { addToPlaylistHandler, checkIfAlreadyPresent } from "../Utilities";
+import { checkIfAlreadyPresent } from "../Utilities";
 
 const VideoContext = createContext();
 

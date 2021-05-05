@@ -1,10 +1,9 @@
-import { useParams, NavLink } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import ReactPlayer from "react-player/youtube";
 import { PlaylistModal } from "./PlaylistModal";
 import { NotesForm } from "./NotesForm";
 import { allVideos } from "../Database";
 import { useVideo } from "../Contexts";
-import { Navlinks } from "./Navlinks";
 import { checkIfAlreadyPresent } from "../Utilities";
 import { useState } from "react";
 
