@@ -14,7 +14,7 @@ export const LikedVideos = () => {
 
   return (
     <>
-      {likedVideos.length === 0 && (
+      {filterLikedVideos.length === 0 && (
         <h1 className="empty-state">No Liked Videos yet!</h1>
       )}
       <div className="liked-videos-wrapper">

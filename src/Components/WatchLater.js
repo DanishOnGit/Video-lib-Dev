@@ -11,7 +11,7 @@ export const WatchLater = () => {
 
   return (
     <>
-    {watchLaterVideos.length===0 && <h1 className="empty-state">All caught up!</h1>}  
+    {filteredWatchLaterVideos.length===0 && <h1 className="empty-state">All caught up!</h1>}  
     <div className="watch-later-videos-wrapper">
       {filteredWatchLaterVideos.map((item) => {
         return (
