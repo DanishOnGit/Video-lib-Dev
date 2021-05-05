@@ -1,5 +1,5 @@
 import { createContext, useContext, useReducer } from "react";
-
+import { addToPlaylistHandler, checkIfAlreadyPresent } from "../Utilities";
 
 const VideoContext = createContext();
 
@@ -7,14 +7,34 @@ export const VideoProvider = ({ children }) => {
   const reducer = (state, action) => {
     switch (action.type) {
       case "LIKE_VIDEO": {
-        return {
-          ...state,
-          likedVideos: [
-            ...state.likedVideos,
-            { ...action.payload, existsInLikedVideos: true }
-          ]
-        };
+        const result = checkIfAlreadyPresent(
+          state.likedVideos,
+          action.payload.id
+        );
+        if (!result) {
+          return {
+            ...state,
+            likedVideos: [
+              ...state.likedVideos,
+              { ...action.payload, existsInLikedVideos: true }
+            ]
+          };
+        } else {
+          return {
+            ...state,
+            likedVideos: state.likedVideos.map((item) => {
+              if (item.id === action.payload.id) {
+                return {
+                  ...item,
+                  existsInLikedVideos: !item.existsInLikedVideos
+                };
+              }
+              return item;
+            })
+          };
+        }
       }
+
       case "ADD_TO_WATCH_LATER": {
         return {
           ...state,
