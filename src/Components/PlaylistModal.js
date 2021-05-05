@@ -3,7 +3,6 @@ import { useVideo } from "../Contexts";
 import { v4 as uuidv4 } from "uuid";
 import { addToPlaylistHandler } from "../Utilities";
 
-
 const UserPlaylists = ({ playlist, videoDetails }) => {
   const {
     state: { playlists },
@@ -22,7 +21,7 @@ const UserPlaylists = ({ playlist, videoDetails }) => {
       <label htmlFor={playlist.listId}>{playlist.listName}</label>
     </li>
   );
-}
+};
 
 export const PlaylistModal = ({ display, setDisplay, videoDetails }) => {
   const [playlistName, setPlaylistName] = useState("");
@@ -87,4 +86,4 @@ export const PlaylistModal = ({ display, setDisplay, videoDetails }) => {
       </div>
     </div>
   );
-}
+};
