@@ -16,8 +16,5 @@ export function addToPlaylistHandler(
   playlist,
   videoDetails
 ) {
-  const result = checkIfPresentInPlaylist(playlists, playlist, videoDetails);
-  if (!result) {
-    dispatch({ type: "ADD_TO_PLAYLISTS", payload: { videoDetails, playlist } });
-  }
+  dispatch({ type: "ADD_TO_PLAYLISTS", payload: { videoDetails, playlist } });
 }
