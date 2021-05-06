@@ -103,6 +103,17 @@ export const VideoProvider = ({ children }) => {
           )
         };
       }
+      case "UPDATE_PLAYLIST_NAME": {
+        return {
+          ...state,
+          playlists: state.playlists.map((playlist) => {
+            if (playlist.listId === action.payload.listId) {
+              return { ...playlist, listName: action.payload.listHeading };
+            }
+            return playlist;
+          })
+        };
+      }
       default:
         return state;
     }

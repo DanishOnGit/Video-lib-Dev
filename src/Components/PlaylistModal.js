@@ -12,9 +12,7 @@ const UserPlaylists = ({ playlist, videoDetails }) => {
   return (
     <li>
       <input
-        onChange={() =>
-          addToPlaylistHandler(playlists, dispatch, playlist, videoDetails)
-        }
+        onChange={() => addToPlaylistHandler(dispatch, playlist, videoDetails)}
         id={playlist.listId}
         type="checkbox"
         checked={playlist.listVideos.find(
