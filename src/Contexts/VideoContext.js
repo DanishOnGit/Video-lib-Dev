@@ -64,7 +64,6 @@ export const VideoProvider = ({ children }) => {
         }
       }
 
-
       case "ADD_TO_HISTORY": {
         return {
           ...state,
@@ -75,19 +74,34 @@ export const VideoProvider = ({ children }) => {
         };
       }
       case "ADD_TO_PLAYLISTS": {
+        console.log("action payload is ", action.payload);
         const result = state.playlists.map((list) => {
           if (list.listId === action.payload.playlist.listId) {
             return {
               ...list,
-              listVideos: [
-                ...list.listVideos,
-                { ...action.payload.videoDetails }
-              ]
+              listVideos: list.listVideos.find(
+                (video) => video.id === action.payload.videoDetails.id
+              )
+                ? list.listVideos.filter(
+                    (video) => video.id !== action.payload.videoDetails.id
+                  )
+                : [
+                    ...list.listVideos,
+                    { ...action.payload.videoDetails, existsInPlaylist: true }
+                  ]
             };
           }
           return list;
         });
         return { ...state, playlists: [...result] };
+      }
+      case "DELETE_PLAYLIST": {
+        return {
+          ...state,
+          playlists: state.playlists.filter(
+            (playlist) => playlist.listId !== action.payload
+          )
+        };
       }
       default:
         return state;

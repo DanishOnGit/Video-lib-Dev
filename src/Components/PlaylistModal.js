@@ -17,6 +17,9 @@ const UserPlaylists = ({ playlist, videoDetails }) => {
         }
         id={playlist.listId}
         type="checkbox"
+        checked={playlist.listVideos.find(
+          (video) => video.id === videoDetails.id
+        )}
       />
       <label htmlFor={playlist.listId}>{playlist.listName}</label>
     </li>
