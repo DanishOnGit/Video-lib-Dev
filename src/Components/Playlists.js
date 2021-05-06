@@ -56,21 +56,27 @@ const PlaylistCard = ({ playlist }) => {
       <div className="playlist-items-wrapper">
         {playlist.listVideos.map((item) => {
           return (
-            <Link to={`/video/${item.id}`}>
-              <div className="video-item pointer video-item-link" key={item.id}>
+            <div
+              className="video-item pointer video-item-link pos-rel"
+              key={item.id}
+            >
+              <Link to={`/video/${item.id}`}>
                 <img
                   className="thumbnail-img"
                   src={item.thumbnail}
                   alt="thumbnail"
                 />
-                <button
-                  onClick={() => addToPlaylistHandler(dispatch, playlist, item)}
-                  className="btn btn-secondary remove-btn"
-                >
-                  {" "}
-                  <i className="fas fa-times "></i>
-                </button>
+              </Link>
+              <button
+                onClick={() => addToPlaylistHandler(dispatch, playlist, item)}
+                className="btn btn-secondary remove-btn"
+              >
+                {" "}
+                <i className="fas fa-times "></i>
+              </button>
 
+              <Link to={`/video/${item.id}`} className="styled">
+                {" "}
                 <div className="video-description">
                   <div class="avatar-wrapper-small">
                     <img class="avatar-small" src={item.avatar} alt="avatar" />
@@ -79,8 +85,8 @@ const PlaylistCard = ({ playlist }) => {
                   <p className="small">{item.channelName}</p>
                   <p>{item.level}</p>
                 </div>
-              </div>
-            </Link>
+              </Link>
+            </div>
           );
         })}
       </div>
