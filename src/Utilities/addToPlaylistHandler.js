@@ -10,11 +10,6 @@ function checkIfPresentInPlaylist(playlistsArray, playlist, videoDetails) {
   return videoObject;
 }
 
-export function addToPlaylistHandler(
-  playlists,
-  dispatch,
-  playlist,
-  videoDetails
-) {
+export function addToPlaylistHandler(dispatch, playlist, videoDetails) {
   dispatch({ type: "ADD_TO_PLAYLISTS", payload: { videoDetails, playlist } });
 }
