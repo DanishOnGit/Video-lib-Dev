@@ -9,11 +9,17 @@ const PlaylistCard = ({ playlist }) => {
   const { dispatch } = useVideo();
 
   return (
-    <div>
+    <div style={{ textAlign: "left" }}>
       {!editMode ? (
         <>
           <h2 className="playlist-heading">{playlist.listName}</h2>{" "}
-          <button onClick={() => setEditMode(true)}>Edit</button>
+          <button
+            className="btn-icon btn-icon-hover mg-1"
+            onClick={() => setEditMode(true)}
+          >
+            {" "}
+            <i className="far fa-edit"></i>
+          </button>
         </>
       ) : (
         <>
@@ -23,6 +29,7 @@ const PlaylistCard = ({ playlist }) => {
             onChange={(e) => setListHeading(e.target.value)}
           />
           <button
+            className="btn-icon btn-icon-hover mg-1"
             onClick={() => {
               setEditMode(false);
               dispatch({
@@ -31,11 +38,12 @@ const PlaylistCard = ({ playlist }) => {
               });
             }}
           >
-            Save
+            <i className="fas fa-check"></i>
           </button>
         </>
       )}
       <button
+        className="btn-icon btn-icon-hover mg-1"
         onClick={() =>
           dispatch({
             type: "DELETE_PLAYLIST",
@@ -43,7 +51,7 @@ const PlaylistCard = ({ playlist }) => {
           })
         }
       >
-        Delete
+        <i className="far fa-trash-alt"></i>
       </button>
       <div className="playlist-items-wrapper">
         {playlist.listVideos.map((item) => {
