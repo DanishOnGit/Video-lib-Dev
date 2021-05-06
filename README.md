@@ -1,4 +1,4 @@
-# A Video Library to learn Badminton !
+# Welcome to [Netplay](https://netplay.netlify.app/), a video library to learn Badminton !
 
 ## Frontend features:
 * Video lisiting page
