@@ -326,6 +326,25 @@ body {
   grid-template-columns: repeat(3, 1fr);
   column-gap: 0.5rem;
 }
+.pos-rel {
+  position: relative;
+}
+.styled {
+  text-decoration: none;
+  color: var(--white-color);
+}
+.remove-btn {
+  color: var(--black-color);
+  position: absolute;
+  top: 0.2rem;
+  right: 0.2rem;
+  border-radius: 50%;
+  background-color: var(--light-grey-color);
+}
+.remove-btn .fa-times {
+  padding: 0.2rem;
+  font-size: 1rem;
+}
 @media screen and (min-width: 556px) {
   .playlists-wrapper {
     row-gap: 0.1.5rem;
