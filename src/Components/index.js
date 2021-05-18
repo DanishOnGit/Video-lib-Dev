@@ -7,3 +7,6 @@ export { Playlists } from "./Playlists";
 export { VideoPlayer } from "./ReactPlayer";
 export { PlaylistModal } from "./PlaylistModal";
 export { NotesForm } from "./NotesForm";
+export { Signup } from "./Signup";
+export { Login } from "./Login";
+export { PageNotFound } from "./PageNotFound";

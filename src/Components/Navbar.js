@@ -1,5 +1,7 @@
+import { useAuth } from "../Contexts";
 import { NavLink } from "react-router-dom";
 export const Navbar = () => {
+  const { isLoggedIn, logoutHandler, currentUserId } = useAuth();
   return (
     <div>
       <nav className="nav-wrapper-3">
@@ -37,9 +39,20 @@ export const Navbar = () => {
               </li>
             </NavLink>
 
-            <NavLink to="/likedVideos" className="side-nav-link">
+            <NavLink to={`/likedVideos`} className="side-nav-link">
               <li className="pointer">
-                <i class="fas fa-thumbs-up pointer"></i>
+                <i className="fas fa-thumbs-up pointer"></i>
+              </li>
+            </NavLink>
+
+            <NavLink to="/login" className="side-nav-link">
+              <li className="pointer">
+                <button
+                  onClick={() => logoutHandler()}
+                  className="btn btn-outline-primary"
+                >
+                  {isLoggedIn ? "Logout" : "Login"}
+                </button>
               </li>
             </NavLink>
           </ul>

@@ -3,9 +3,10 @@ import ReactPlayer from "react-player/youtube";
 import { PlaylistModal } from "./PlaylistModal";
 import { NotesForm } from "./NotesForm";
 import { allVideos } from "../Database";
-import { useVideo } from "../Contexts";
+import { useAuth, useVideo } from "../Contexts";
 import { checkIfAlreadyPresent } from "../Utilities";
 import { useState } from "react";
+import axios from "axios";
 
 export const VideoPlayer = () => {
   const [display, setDisplay] = useState("none");
@@ -15,6 +16,8 @@ export const VideoPlayer = () => {
     state: { likedVideos, watchLaterVideos, historyVideos },
     dispatch
   } = useVideo();
+
+  const { currentUserId } = useAuth();
 
   function toggleColor() {
     const result = checkIfAlreadyPresent(likedVideos, videoId);
@@ -26,6 +29,20 @@ export const VideoPlayer = () => {
   }
 
   const videoDetails = allVideos.find((item) => item.id === videoId);
+
+  const addToLikedVideos = async () => {
+    try {
+      console.log("tryng to like video..", currentUserId);
+      const res = await axios.post("http://localhost:3000/likedVideos", {
+        _id: currentUserId,
+        videoId: videoDetails,
+        existsInLikedVideos: true
+      });
+      console.log("POST likedvideos,", res);
+    } catch (err) {
+      console.log("err liking video", err);
+    }
+  };
 
   return (
     <>
@@ -53,9 +70,10 @@ export const VideoPlayer = () => {
             <ul className="list-items-flex list-non-bullet spaced">
               <li>
                 <i
-                  onClick={() =>
-                    dispatch({ type: "LIKE_VIDEO", payload: videoDetails })
-                  }
+                  // onClick={() =>
+                  //   dispatch({ type: "LIKE_VIDEO", payload: videoDetails })
+                  // }
+                  onClick={() => addToLikedVideos()}
                   className="fas fa-thumbs-up pointer"
                   style={{ color: toggleColor() }}
                 ></i>
