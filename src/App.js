@@ -20,14 +20,17 @@ import { APIURL } from "./Utilities";
 
 export default function App() {
   const { isLoggedIn, currentUserId } = useAuth();
-  const { dispatch } = useVideo();
-
+  const {
+    state: { playlists },
+    dispatch
+  } = useVideo();
+  console.log("App js playlista rea...", playlists);
   useEffect(() => {
-    (async function () {
-      try {
-        console.log({ isLoggedIn });
+    if (isLoggedIn) {
+      (async function () {
+        try {
+          console.log({ isLoggedIn });
 
-        if (isLoggedIn) {
           const {
             data: { likedVideos, watchLaterVideos, watchHistoryVideos },
             status
@@ -48,11 +51,25 @@ export default function App() {
               payload: watchHistoryVideos
             });
           }
+        } catch (err) {
+          console.log("GET req error is", err);
         }
-      } catch (err) {
-        console.log("GET req error is", err);
-      }
-    })();
+      })();
+
+      (async function () {
+        try {
+          const {
+            data: { playlists },
+            status
+          } = await axios.get(`${APIURL}/users/${currentUserId}/playlists`);
+          if (status === 200) {
+            dispatch({ type: "GET_PLAYLISTS", payload: playlists });
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      })();
+    }
   }, [isLoggedIn]);
 
   useEffect(() => {
@@ -78,7 +95,7 @@ export default function App() {
         <PrivateRoute path="/likedVideos" element={<LikedVideos />} />
         <PrivateRoute path="/watchLaterVideos" element={<WatchLater />} />
         <PrivateRoute path="/watchHistory" element={<WatchHistory />} />
-        <Route path="/playlists" element={<Playlists />} />
+        <PrivateRoute path="/playlists" element={<Playlists />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/*" element={<PageNotFound />} />
