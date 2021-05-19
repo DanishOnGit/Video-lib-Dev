@@ -16,6 +16,7 @@ import { Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
 import { useAuth, useVideo } from "./Contexts";
+import { APIURL } from "./Utilities";
 
 export default function App() {
   const { isLoggedIn, currentUserId } = useAuth();
@@ -25,16 +26,47 @@ export default function App() {
     (async function () {
       try {
         console.log({ isLoggedIn });
+
         if (isLoggedIn) {
-          const res = await axios.get("http://localhost:3000/likedVideos");
-          console.log("GET likedVideos...", res);
-          dispatch({ type: "GET_LIKED_VIDEOS", payload: res });
+          const {
+            data: { likedVideos, watchLaterVideos, watchHistoryVideos },
+            status
+          } = await axios({
+            method: "GET",
+            url: `${APIURL}/users/${currentUserId}`
+          });
+
+          console.log("GET whole arrays...", likedVideos, watchHistoryVideos);
+          if (status === 200) {
+            dispatch({ type: "GET_LIKED_VIDEOS", payload: likedVideos });
+            dispatch({
+              type: "GET_WATCH_LATER_VIDEOS",
+              payload: watchLaterVideos
+            });
+            dispatch({
+              type: "GET_HISTORY_VIDEOS",
+              payload: watchHistoryVideos
+            });
+          }
         }
       } catch (err) {
-        console.log("GET req eror is", err);
+        console.log("GET req error is", err);
       }
     })();
   }, [isLoggedIn]);
+
+  useEffect(() => {
+    (async function () {
+      try {
+        const {
+          data: { videos }
+        } = await axios.get(`${APIURL}/videos`);
+        dispatch({ type: "GET_VIDEOS", payload: videos });
+      } catch (err) {
+        console.log("error getting videos", err);
+      }
+    })();
+  }, []);
 
   return (
     <div className="App">

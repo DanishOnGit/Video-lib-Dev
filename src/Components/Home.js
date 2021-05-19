@@ -1,7 +1,11 @@
 import { NavLink, Link } from "react-router-dom";
+import { useVideo } from "../Contexts";
 import { allVideos } from "../Database";
 
 export const Home = () => {
+  const {
+    state: { videos }
+  } = useVideo();
   return (
     <div className="home-wrapper">
       <aside className="home-wrapper__aside">
@@ -13,11 +17,7 @@ export const Home = () => {
             </li>
           </NavLink>
 
-          <NavLink
-            to="/watchHistory"
-            className="side-nav-link"
-            
-          >
+          <NavLink to="/watchHistory" className="side-nav-link">
             <li className="pointer">
               <i class="fas fa-history pointer"></i>
               <span className="list-item-title">History</span>
@@ -47,10 +47,10 @@ export const Home = () => {
         </ul>
       </aside>
       <main className="home-wrapper__main">
-        {allVideos.map((item) => {
+        {videos.map((item) => {
           return (
-            <Link to={`/video/${item.id}`} className="video-item-link pointer">
-              <div className="video-item" key={item.id}>
+            <Link to={`/video/${item._id}`} className="video-item-link pointer">
+              <div className="video-item" key={item._id}>
                 <img
                   className="thumbnail-img"
                   src={item.thumbnail}

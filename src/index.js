@@ -7,11 +7,11 @@ const rootElement = document.getElementById("root");
 ReactDOM.render(
   <StrictMode>
     <Router>
-      <AuthProvider>
-        <VideoProvider>
+      <VideoProvider>
+        <AuthProvider>
           <App />
-        </VideoProvider>
-      </AuthProvider>
+        </AuthProvider>
+      </VideoProvider>
     </Router>
   </StrictMode>,
   rootElement

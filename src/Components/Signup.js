@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { APIURL } from "../Utilities";
 export const Signup = () => {
   const navigate = useNavigate();
   const [userEmail, setUserEmail] = useState("");
@@ -11,7 +12,7 @@ export const Signup = () => {
   const createUser = async (e) => {
     try {
       e.preventDefault();
-      const res = await axios.post("http://localhost:3000/users", {
+      const res = await axios.post(`${APIURL}/users`, {
         name: userName,
         email: userEmail,
         password: password

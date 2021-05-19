@@ -6,6 +6,30 @@ const VideoContext = createContext();
 export const VideoProvider = ({ children }) => {
   const reducer = (state, action) => {
     switch (action.type) {
+      case "GET_VIDEOS": {
+        return {
+          ...state,
+          videos: action.payload
+        };
+      }
+      case "GET_LIKED_VIDEOS": {
+        return {
+          ...state,
+          likedVideos: action.payload
+        };
+      }
+      case "GET_WATCH_LATER_VIDEOS": {
+        return {
+          ...state,
+          watchLaterVideos: action.payload
+        };
+      }
+      case "GET_HISTORY_VIDEOS": {
+        return {
+          ...state,
+          historyVideos: action.payload
+        };
+      }
       // case "LIKE_VIDEO": {
       //   const result = checkIfAlreadyPresent(
       //     state.likedVideos,
@@ -34,8 +58,6 @@ export const VideoProvider = ({ children }) => {
       //     };
       //   }
       // }
-      case "LIKE_VIDEO": {
-      }
 
       case "ADD_TO_WATCH_LATER": {
         const result = checkIfAlreadyPresent(
@@ -121,6 +143,7 @@ export const VideoProvider = ({ children }) => {
     }
   };
   const initialState = {
+    videos: [],
     likedVideos: [],
     watchLaterVideos: [],
     historyVideos: [],
