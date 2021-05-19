@@ -30,73 +30,38 @@ export const VideoProvider = ({ children }) => {
           historyVideos: action.payload
         };
       }
-      // case "LIKE_VIDEO": {
-      //   const result = checkIfAlreadyPresent(
-      //     state.likedVideos,
-      //     action.payload.id
-      //   );
-      //   if (!result) {
-      //     return {
-      //       ...state,
-      //       likedVideos: [
-      //         ...state.likedVideos,
-      //         { ...action.payload, existsInLikedVideos: true }
-      //       ]
-      //     };
-      //   } else {
-      //     return {
-      //       ...state,
-      //       likedVideos: state.likedVideos.map((item) => {
-      //         if (item.id === action.payload.id) {
-      //           return {
-      //             ...item,
-      //             existsInLikedVideos: !item.existsInLikedVideos
-      //           };
-      //         }
-      //         return item;
-      //       })
-      //     };
-      //   }
-      // }
-
-      case "ADD_TO_WATCH_LATER": {
-        const result = checkIfAlreadyPresent(
-          state.watchLaterVideos,
-          action.payload.id
-        );
-        if (!result) {
-          return {
-            ...state,
-            watchLaterVideos: [
-              ...state.watchLaterVideos,
-              { ...action.payload, existsInwatchLaterVideos: true }
-            ]
-          };
-        } else {
-          return {
-            ...state,
-            watchLaterVideos: state.watchLaterVideos.map((item) => {
-              if (item.id === action.payload.id) {
-                return {
-                  ...item,
-                  existsInWatchLaterVideos: !item.existsInWatchLaterVideos
-                };
-              }
-              return item;
-            })
-          };
-        }
-      }
-
-      case "ADD_TO_HISTORY": {
+      case "GET_PLAYLISTS": {
         return {
           ...state,
-          historyVideos: [
-            ...state.historyVideos,
-            { ...action.payload, existsInHistory: true }
-          ]
+          playlists: action.payload
         };
       }
+      case "CREATE_PLAYLIST": {
+        return {
+          ...state,
+          playlists: [...state.playlists, action.payload]
+        };
+      }
+      case "UPDATE_PLAYLIST": {
+        return {
+          ...state,
+          playlists: state.playlists.map((playlist) => {
+            if (playlist._id !== action.payload._id) {
+              return playlist;
+            }
+            return action.payload;
+          })
+        };
+      }
+      case "DELETE_PLAYLIST": {
+        return {
+          ...state,
+          playlists: state.playlists.filter(
+            (playlist) => playlist._id !== action.payload._id
+          )
+        };
+      }
+
       case "ADD_TO_PLAYLISTS": {
         console.log("action payload is ", action.payload);
         const result = state.playlists.map((list) => {
@@ -119,14 +84,14 @@ export const VideoProvider = ({ children }) => {
         });
         return { ...state, playlists: [...result] };
       }
-      case "DELETE_PLAYLIST": {
-        return {
-          ...state,
-          playlists: state.playlists.filter(
-            (playlist) => playlist.listId !== action.payload
-          )
-        };
-      }
+      // case "DELETE_PLAYLIST": {
+      //   return {
+      //     ...state,
+      //     playlists: state.playlists.filter(
+      //       (playlist) => playlist.listId !== action.payload
+      //     )
+      //   };
+      // }
       case "UPDATE_PLAYLIST_NAME": {
         return {
           ...state,

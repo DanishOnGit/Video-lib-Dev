@@ -1,13 +1,28 @@
 import { useVideo } from "../Contexts";
 import { Link } from "react-router-dom";
-import { addToPlaylistHandler } from "../Utilities";
+import {
+  addOrRemovePlaylist,
+  addToPlaylistHandler,
+  APIURL
+} from "../Utilities";
 import { useState } from "react";
+import axios from "axios";
 
 const PlaylistCard = ({ playlist }) => {
   const [listHeading, setListHeading] = useState(playlist.listName);
   const [editMode, setEditMode] = useState(false);
   const { dispatch } = useVideo();
 
+  const deletePlaylist = async () => {
+    try {
+      const {
+        data: { playlist: playlistFromRes }
+      } = await axios.delete(`${APIURL}/playlists/${playlist._id}`);
+      dispatch({ type: "DELETE_PLAYLIST", payload: playlistFromRes._id });
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <div style={{ textAlign: "left" }}>
       {!editMode ? (
@@ -44,46 +59,51 @@ const PlaylistCard = ({ playlist }) => {
       )}
       <button
         className="btn-icon btn-icon-hover mg-1"
-        onClick={() =>
-          dispatch({
-            type: "DELETE_PLAYLIST",
-            payload: playlist.listId
-          })
-        }
+        onClick={() => deletePlaylist()}
       >
         <i className="far fa-trash-alt"></i>
       </button>
       <div className="playlist-items-wrapper">
-        {playlist.listVideos.map((item) => {
+        {playlist.listVideos.map(({ videoId }) => {
           return (
             <div
               className="video-item pointer video-item-link pos-rel"
-              key={item.id}
+              key={videoId._id}
             >
-              <Link to={`/video/${item.id}`}>
+              <Link to={`/video/${videoId._id}`}>
                 <img
                   className="thumbnail-img"
-                  src={item.thumbnail}
+                  src={videoId.thumbnail}
                   alt="thumbnail"
                 />
               </Link>
               <button
-                onClick={() => addToPlaylistHandler(dispatch, playlist, item)}
+                onClick={() =>
+                  addOrRemovePlaylist({
+                    dispatch,
+                    playlistId: playlist._id,
+                    videoId
+                  })
+                }
                 className="btn btn-secondary remove-btn"
               >
                 {" "}
                 <i className="fas fa-times "></i>
               </button>
 
-              <Link to={`/video/${item.id}`} className="styled">
+              <Link to={`/video/${videoId._id}`} className="styled">
                 {" "}
                 <div className="video-description">
                   <div class="avatar-wrapper-small">
-                    <img class="avatar-small" src={item.avatar} alt="avatar" />
+                    <img
+                      class="avatar-small"
+                      src={videoId.avatar}
+                      alt="avatar"
+                    />
                   </div>
-                  <h4>{item.videoTitle}</h4>
-                  <p className="small">{item.channelName}</p>
-                  <p>{item.level}</p>
+                  <h4>{videoId.videoTitle}</h4>
+                  <p className="small">{videoId.channelName}</p>
+                  <p>{videoId.level}</p>
                 </div>
               </Link>
             </div>

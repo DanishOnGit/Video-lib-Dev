@@ -38,8 +38,6 @@ export const VideoPlayer = () => {
     })();
   }, []);
 
-  // const videoDetails = allVideos.find((item) => item.id === videoId);
-
   const addOrRemoveLikedVideos = async () => {
     try {
       console.log("tryng to like video..", currentUserId);

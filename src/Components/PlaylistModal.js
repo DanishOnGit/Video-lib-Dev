@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { useVideo } from "../Contexts";
+import { useAuth, useVideo } from "../Contexts";
 import { v4 as uuidv4 } from "uuid";
-import { addToPlaylistHandler } from "../Utilities";
+import { addOrRemovePlaylist, APIURL } from "../Utilities";
+import axios from "axios";
 
 const UserPlaylists = ({ playlist, videoDetails }) => {
   const {
@@ -12,32 +13,45 @@ const UserPlaylists = ({ playlist, videoDetails }) => {
   return (
     <li>
       <input
-        onChange={() => addToPlaylistHandler(dispatch, playlist, videoDetails)}
-        id={playlist.listId}
+        onChange={() =>
+          addOrRemovePlaylist({
+            dispatch,
+            playlistId: playlist._id,
+            videoId: videoDetails._id
+          })
+        }
+        id={playlist._id}
         type="checkbox"
         checked={playlist.listVideos.find(
           (video) => video.id === videoDetails.id
         )}
       />
-      <label htmlFor={playlist.listId}>{playlist.listName}</label>
+      <label htmlFor={playlist._id}>{playlist.listName}</label>
     </li>
   );
 };
 
 export const PlaylistModal = ({ display, setDisplay, videoDetails }) => {
   const [playlistName, setPlaylistName] = useState("");
-
+  const { currentUserId } = useAuth();
   const {
-    state: { playlists }
+    state: { playlists },
+    dispatch
   } = useVideo();
-
-  function createNewPlaylist(playlistName) {
-    playlists.push({
-      listName: playlistName,
-      listId: uuidv4(),
-      listVideos: []
-    });
-    setPlaylistName("");
+  console.log("playlists are...", playlists);
+  async function createNewPlaylist(playlistName) {
+    try {
+      const {
+        data: { playlist }
+      } = await axios.post(`${APIURL}/playlists`, {
+        listName: playlistName,
+        userId: currentUserId
+      });
+      dispatch({ type: "CREATE_PLAYLIST", payload: playlist });
+      setPlaylistName("");
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (
@@ -55,7 +69,7 @@ export const PlaylistModal = ({ display, setDisplay, videoDetails }) => {
               <UserPlaylists
                 playlist={playlist}
                 videoDetails={videoDetails}
-                key={playlist.listId}
+                key={playlist._id}
               />
             );
           })}
