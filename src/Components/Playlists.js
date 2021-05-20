@@ -1,10 +1,6 @@
 import { useVideo } from "../Contexts";
 import { Link } from "react-router-dom";
-import {
-  addOrRemovePlaylist,
-  addToPlaylistHandler,
-  APIURL
-} from "../Utilities";
+import { addOrRemovePlaylist, APIURL } from "../Utilities";
 import { useState } from "react";
 import axios from "axios";
 
@@ -16,9 +12,24 @@ const PlaylistCard = ({ playlist }) => {
   const deletePlaylist = async () => {
     try {
       const {
-        data: { playlist: playlistFromRes }
+        data: { playlist: playlistFromResponse }
       } = await axios.delete(`${APIURL}/playlists/${playlist._id}`);
-      dispatch({ type: "DELETE_PLAYLIST", payload: playlistFromRes._id });
+      dispatch({ type: "DELETE_PLAYLIST", payload: playlistFromResponse._id });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const updatePlaylistName = async () => {
+    try {
+      const {
+        data: { playlist: playlistFromResponse }
+      } = await axios.post(`${APIURL}/playlists/${playlist._id}`, {
+        listName: listHeading
+      });
+      dispatch({ type: "UPDATE_PLAYLIST", payload: playlistFromResponse });
+
+      setEditMode(false);
     } catch (err) {
       console.log(err);
     }
@@ -45,13 +56,15 @@ const PlaylistCard = ({ playlist }) => {
           />
           <button
             className="btn-icon btn-icon-hover mg-1"
-            onClick={() => {
-              setEditMode(false);
-              dispatch({
-                type: "UPDATE_PLAYLIST_NAME",
-                payload: { listHeading, listId: playlist.listId }
-              });
-            }}
+            onClick={() => updatePlaylistName()}
+            // onClick={() => {
+            //   updatePlaylistName()
+            //   setEditMode(false);
+            //   dispatch({
+            //     type: "UPDATE_PLAYLIST_NAME",
+            //     payload: { listHeading, listId: playlist.listId }
+            //   });
+            // }}
           >
             <i className="fas fa-check"></i>
           </button>
@@ -82,7 +95,7 @@ const PlaylistCard = ({ playlist }) => {
                   addOrRemovePlaylist({
                     dispatch,
                     playlistId: playlist._id,
-                    videoId
+                    videoId: videoId._id
                   })
                 }
                 className="btn btn-secondary remove-btn"

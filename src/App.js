@@ -39,7 +39,12 @@ export default function App() {
             url: `${APIURL}/users/${currentUserId}`
           });
 
-          console.log("GET whole arrays...", likedVideos, watchHistoryVideos);
+          console.log(
+            "GET whole arrays...",
+            likedVideos,
+            watchHistoryVideos,
+            watchLaterVideos
+          );
           if (status === 200) {
             dispatch({ type: "GET_LIKED_VIDEOS", payload: likedVideos });
             dispatch({

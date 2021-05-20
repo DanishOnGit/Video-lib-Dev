@@ -1,5 +1,4 @@
 import { createContext, useContext, useReducer } from "react";
-import { checkIfAlreadyPresent } from "../Utilities";
 
 const VideoContext = createContext();
 
@@ -57,33 +56,42 @@ export const VideoProvider = ({ children }) => {
         return {
           ...state,
           playlists: state.playlists.filter(
-            (playlist) => playlist._id !== action.payload._id
+            (playlist) => playlist._id !== action.payload
           )
         };
       }
-
-      case "ADD_TO_PLAYLISTS": {
-        console.log("action payload is ", action.payload);
-        const result = state.playlists.map((list) => {
-          if (list.listId === action.payload.playlist.listId) {
-            return {
-              ...list,
-              listVideos: list.listVideos.find(
-                (video) => video.id === action.payload.videoDetails.id
-              )
-                ? list.listVideos.filter(
-                    (video) => video.id !== action.payload.videoDetails.id
-                  )
-                : [
-                    ...list.listVideos,
-                    { ...action.payload.videoDetails, existsInPlaylist: true }
-                  ]
-            };
-          }
-          return list;
-        });
-        return { ...state, playlists: [...result] };
+      case "RESET_STATES": {
+        return {
+          ...state,
+          likedVideos: [],
+          watchLaterVideos: [],
+          historyVideos: [],
+          playlists: []
+        };
       }
+
+      // case "ADD_TO_PLAYLISTS": {
+      //   console.log("action payload is ", action.payload);
+      //   const result = state.playlists.map((list) => {
+      //     if (list.listId === action.payload.playlist.listId) {
+      //       return {
+      //         ...list,
+      //         listVideos: list.listVideos.find(
+      //           (video) => video.id === action.payload.videoDetails.id
+      //         )
+      //           ? list.listVideos.filter(
+      //               (video) => video.id !== action.payload.videoDetails.id
+      //             )
+      //           : [
+      //               ...list.listVideos,
+      //               { ...action.payload.videoDetails, existsInPlaylist: true }
+      //             ]
+      //       };
+      //     }
+      //     return list;
+      //   });
+      //   return { ...state, playlists: [...result] };
+      // }
       // case "DELETE_PLAYLIST": {
       //   return {
       //     ...state,
@@ -92,17 +100,17 @@ export const VideoProvider = ({ children }) => {
       //     )
       //   };
       // }
-      case "UPDATE_PLAYLIST_NAME": {
-        return {
-          ...state,
-          playlists: state.playlists.map((playlist) => {
-            if (playlist.listId === action.payload.listId) {
-              return { ...playlist, listName: action.payload.listHeading };
-            }
-            return playlist;
-          })
-        };
-      }
+      // case "UPDATE_PLAYLIST_NAME": {
+      //   return {
+      //     ...state,
+      //     playlists: state.playlists.map((playlist) => {
+      //       if (playlist.listId === action.payload.listId) {
+      //         return { ...playlist, listName: action.payload.listHeading };
+      //       }
+      //       return playlist;
+      //     })
+      //   };
+      // }
       default:
         return state;
     }

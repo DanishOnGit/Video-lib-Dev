@@ -35,9 +35,9 @@ export const AuthProvider = ({ children }) => {
       });
       console.log("Authentication response is...", userId);
       if (status === 200) {
+        setCurrentUserId(userId);
         setIsLoggedIn(true);
         console.log(userId);
-        setCurrentUserId(userId);
         localStorage?.setItem("login", JSON.stringify({ loginStatus: true }));
         localStorage?.setItem(
           "userId",
@@ -53,7 +53,9 @@ export const AuthProvider = ({ children }) => {
 
   const logoutHandler = () => {
     localStorage?.removeItem("login");
+    localStorage?.removeItem("userId");
     setIsLoggedIn(false);
+    dispatch({ type: "RESET_STATES" });
     navigate("/");
   };
   return (

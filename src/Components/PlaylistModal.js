@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { useAuth, useVideo } from "../Contexts";
 import { v4 as uuidv4 } from "uuid";
-import { addOrRemovePlaylist, APIURL } from "../Utilities";
+import {
+  addOrRemovePlaylist,
+  APIURL,
+  checkIfAlreadyPresent
+} from "../Utilities";
 import axios from "axios";
 
 const UserPlaylists = ({ playlist, videoDetails }) => {
@@ -22,9 +26,10 @@ const UserPlaylists = ({ playlist, videoDetails }) => {
         }
         id={playlist._id}
         type="checkbox"
-        checked={playlist.listVideos.find(
-          (video) => video.id === videoDetails.id
-        )}
+        checked={checkIfAlreadyPresent(playlist.listVideos, videoDetails._id)}
+        // checked={playlist.listVideos.find(
+        //   (video) => video.id === videoDetails.id
+        // )}
       />
       <label htmlFor={playlist._id}>{playlist.listName}</label>
     </li>
