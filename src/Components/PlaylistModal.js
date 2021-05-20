@@ -27,9 +27,6 @@ const UserPlaylists = ({ playlist, videoDetails }) => {
         id={playlist._id}
         type="checkbox"
         checked={checkIfAlreadyPresent(playlist.listVideos, videoDetails._id)}
-        // checked={playlist.listVideos.find(
-        //   (video) => video.id === videoDetails.id
-        // )}
       />
       <label htmlFor={playlist._id}>{playlist.listName}</label>
     </li>

@@ -19,28 +19,28 @@ export const Home = () => {
 
           <NavLink to="/watchHistory" className="side-nav-link">
             <li className="pointer">
-              <i class="fas fa-history pointer"></i>
+              <i className="fas fa-history pointer"></i>
               <span className="list-item-title">History</span>
             </li>
           </NavLink>
 
           <NavLink to="/playlists" className="side-nav-link">
             <li className="pointer">
-              <i class="fas fa-list pointer"></i>
+              <i className="fas fa-list pointer"></i>
               <span className="list-item-title">Playlists</span>
             </li>
           </NavLink>
 
           <NavLink to="/watchLaterVideos" className="side-nav-link">
             <li className="pointer">
-              <i class="fas fa-clock pointer"></i>
+              <i className="fas fa-clock pointer"></i>
               <span className="list-item-title">Watch later</span>
             </li>
           </NavLink>
 
           <NavLink to="/likedVideos" className="side-nav-link">
             <li className="pointer">
-              <i class="fas fa-thumbs-up pointer"></i>
+              <i className="fas fa-thumbs-up pointer"></i>
               <span className="list-item-title">Liked videos</span>
             </li>
           </NavLink>
@@ -58,8 +58,8 @@ export const Home = () => {
                 />
 
                 <div className="video-description">
-                  {/* <div class="avatar-wrapper-small">
-                  <img class="avatar-small" src={item.avatar} alt="avatar" />
+                  {/* <div className="avatar-wrapper-small">
+                  <img className="avatar-small" src={item.avatar} alt="avatar" />
                 </div> */}
                   <h4 className="video-title">{item.videoTitle}</h4>
                   <p className="small description">{item.channelName}</p>

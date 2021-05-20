@@ -57,14 +57,6 @@ const PlaylistCard = ({ playlist }) => {
           <button
             className="btn-icon btn-icon-hover mg-1"
             onClick={() => updatePlaylistName()}
-            // onClick={() => {
-            //   updatePlaylistName()
-            //   setEditMode(false);
-            //   dispatch({
-            //     type: "UPDATE_PLAYLIST_NAME",
-            //     payload: { listHeading, listId: playlist.listId }
-            //   });
-            // }}
           >
             <i className="fas fa-check"></i>
           </button>

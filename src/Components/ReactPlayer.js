@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom";
 import ReactPlayer from "react-player/youtube";
 import { PlaylistModal } from "./PlaylistModal";
 import { NotesForm } from "./NotesForm";
-import { allVideos } from "../Database";
 import { useAuth, useVideo } from "../Contexts";
 import {
   addOrRemoveWatchHistory,
@@ -10,12 +9,13 @@ import {
   checkIfAlreadyPresent,
   toggleColor
 } from "../Utilities";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 
 export const VideoPlayer = () => {
   const [display, setDisplay] = useState("none");
   const [selectedVideo, setSelectedVideo] = useState(null);
+  const videoRef = useRef(null);
   const { videoId } = useParams();
   const {
     state: { likedVideos, watchLaterVideos, historyVideos },
@@ -86,6 +86,7 @@ export const VideoPlayer = () => {
             <div>
               <div className="react-player-wrapper">
                 <ReactPlayer
+                  ref={videoRef}
                   width="100%"
                   height="100%"
                   onStart={() => {
@@ -126,7 +127,7 @@ export const VideoPlayer = () => {
                 </ul>
               </div>
             </div>
-            <NotesForm />
+            <NotesForm videoRef={videoRef} />
           </div>
         </>
       )}

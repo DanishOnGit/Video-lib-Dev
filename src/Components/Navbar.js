@@ -23,19 +23,19 @@ export const Navbar = () => {
 
             <NavLink to="/watchHistory" className="side-nav-link">
               <li className="pointer">
-                <i class="fas fa-history pointer"></i>
+                <i className="fas fa-history pointer"></i>
               </li>
             </NavLink>
 
             <NavLink to="/playlists" className="side-nav-link">
               <li className="pointer">
-                <i class="fas fa-list pointer"></i>
+                <i className="fas fa-list pointer"></i>
               </li>
             </NavLink>
 
             <NavLink to="/watchLaterVideos" className="side-nav-link">
               <li className="pointer">
-                <i class="fas fa-clock pointer"></i>
+                <i className="fas fa-clock pointer"></i>
               </li>
             </NavLink>
 
