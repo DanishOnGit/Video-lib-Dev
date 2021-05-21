@@ -199,12 +199,17 @@ body {
   height: 16rem;
   overflow-y: scroll;
 }
+.form-heading {
+  color: var(--white-color);
+}
+.timestamp {
+  text-align: left;
+  color: var(--white-color);
+}
 .note-form {
   display: flex;
   flex-direction: column;
   padding: 0.5rem;
-
-  /* background-color: pink; */
 }
 .note-card-btns-wrapper {
   display: flex;
@@ -221,7 +226,10 @@ body {
   margin: 0.5rem 0;
   padding: 0.5rem;
   border: 1px solid var(--dark-grey);
+  background-color: inherit;
   border-radius: 2px;
+  text-align: left;
+  color: var(--white-color);
 }
 .save,
 .discard {

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { APIURL } from "../Utilities";
+import { toast } from "react-toastify";
 export const Signup = () => {
   const navigate = useNavigate();
   const [userEmail, setUserEmail] = useState("");
@@ -17,10 +18,32 @@ export const Signup = () => {
         email: userEmail,
         password: password
       });
+      if (res.status === 201) {
+        toast.success("Signup successfull !", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined
+        });
+      }
       navigate("/login");
-
       console.log("singup res is ..", res);
     } catch (err) {
+      if (axios.isAxiosError) {
+        toast.error("Email already exists!", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined
+        });
+      }
+
       console.log("error signing up...", err);
     }
   };

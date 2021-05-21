@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { APIURL } from "../Utilities";
 import { useVideo } from "./VideoContext";
+import { toast } from "react-toastify";
 
 const AuthContext = createContext();
 
@@ -37,7 +38,15 @@ export const AuthProvider = ({ children }) => {
       if (status === 200) {
         setCurrentUserId(userId);
         setIsLoggedIn(true);
-        console.log(userId);
+        toast.success("Login successfull !", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined
+        });
         localStorage?.setItem("login", JSON.stringify({ loginStatus: true }));
         localStorage?.setItem(
           "userId",
@@ -47,6 +56,15 @@ export const AuthProvider = ({ children }) => {
         return status;
       }
     } catch (err) {
+      toast.error("Error logging In!", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined
+      });
       console.log("error logging in...", err);
     }
   };
@@ -56,6 +74,15 @@ export const AuthProvider = ({ children }) => {
     localStorage?.removeItem("userId");
     setIsLoggedIn(false);
     dispatch({ type: "RESET_STATES" });
+    toast.info("Logged out successfully !", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined
+    });
     navigate("/");
   };
   return (

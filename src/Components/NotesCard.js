@@ -36,12 +36,12 @@ export const NotesCard = ({ item, setNotes }) => {
     }
   };
   return (
-    <div className={"note-card-wrapper"}>
-      <p className="small">{item.notedAt}sec</p>
+    <div className="note-card-wrapper">
+      <p className=" timestamp small">{item.notedAt}sec</p>
       {!editMode ? (
         <>
-          <h2 style={{ color: "white" }}>{item.title}</h2>
-          <p style={{ color: "white" }}>{item.description}</p>
+          <h2 className="note-title">{item.title}</h2>
+          <p className="note-description">{item.description}</p>
         </>
       ) : (
         <>
@@ -65,7 +65,10 @@ export const NotesCard = ({ item, setNotes }) => {
             <i className="fas fa-check"></i>
           </button>
         )}
-        <button onClick={() => deleteNote()} className="note-btn">
+        <button
+          onClick={() => deleteNote()}
+          className="btn btn-primary note-btn"
+        >
           <i className="fas fa-trash-alt"></i>
         </button>
       </div>

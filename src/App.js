@@ -15,6 +15,8 @@ import { PrivateRoute } from "./PrivateRoute";
 import { Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useAuth, useVideo } from "./Contexts";
 import { APIURL } from "./Utilities";
 
@@ -93,7 +95,7 @@ export default function App() {
   return (
     <div className="App">
       <Navbar />
-
+      <ToastContainer />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/video/:videoId" element={<VideoPlayer />} />

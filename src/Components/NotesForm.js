@@ -71,7 +71,7 @@ export const NotesForm = ({ videoRef }) => {
   return (
     <div className="notes-form-wrapper">
       <form onSubmit={(e) => e.preventDefault()} className="note-form">
-        <h2>Notes</h2>
+        <h2 className="form-heading">Notes</h2>
         <input
           onChange={(e) => setTitle(e.target.value)}
           value={title}
