@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useAuth, useVideo } from "../Contexts";
-import { v4 as uuidv4 } from "uuid";
 import {
   addOrRemovePlaylist,
   APIURL,
@@ -9,11 +8,8 @@ import {
 import axios from "axios";
 
 const UserPlaylists = ({ playlist, videoDetails }) => {
-  const {
-    state: { playlists },
-    dispatch
-  } = useVideo();
-
+  const { dispatch } = useVideo();
+  const { userToken } = useAuth();
   return (
     <li>
       <input
@@ -21,7 +17,8 @@ const UserPlaylists = ({ playlist, videoDetails }) => {
           addOrRemovePlaylist({
             dispatch,
             playlistId: playlist._id,
-            videoId: videoDetails._id
+            videoId: videoDetails._id,
+            userToken: userToken
           })
         }
         id={playlist._id}
@@ -35,20 +32,22 @@ const UserPlaylists = ({ playlist, videoDetails }) => {
 
 export const PlaylistModal = ({ display, setDisplay, videoDetails }) => {
   const [playlistName, setPlaylistName] = useState("");
-  const { currentUserId } = useAuth();
+
   const {
     state: { playlists },
     dispatch
   } = useVideo();
-  console.log("playlists are...", playlists);
+
   async function createNewPlaylist(playlistName) {
     try {
       const {
         data: { playlist }
-      } = await axios.post(`${APIURL}/playlists`, {
-        listName: playlistName,
-        userId: currentUserId
+      } = await axios({
+        method: "POST",
+        url: `${APIURL}/playlists`,
+        data: { listName: playlistName }
       });
+
       dispatch({ type: "CREATE_PLAYLIST", payload: playlist });
       setPlaylistName("");
     } catch (err) {

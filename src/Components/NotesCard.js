@@ -6,16 +6,19 @@ export const NotesCard = ({ item, setNotes }) => {
   const [title, setTitle] = useState(item.title);
   const [description, setDescription] = useState(item.description);
   const [editMode, setEditMode] = useState(false);
-
   const saveEditedNote = async () => {
     try {
       const {
         data: { note }
-      } = await axios.post(`${APIURL}/notes/${item._id}`, {
-        title,
-        description
+      } = await axios({
+        method: "POST",
+        url: `${APIURL}/notes/${item._id}`,
+        data: {
+          title,
+          description
+        }
       });
-      console.log("note from db", note);
+
       setNotes((notes) =>
         notes.map((item) => (item._id === note._id ? note : item))
       );
@@ -29,7 +32,11 @@ export const NotesCard = ({ item, setNotes }) => {
     try {
       const {
         data: { note }
-      } = await axios.delete(`${APIURL}/notes/${item._id}`);
+      } = await axios({
+        method: "DELETE",
+        url: `${APIURL}/notes/${item._id}`
+      });
+
       setNotes((notes) => notes.filter((item) => item._id !== note._id));
     } catch (err) {
       console.log(err);

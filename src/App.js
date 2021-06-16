@@ -15,51 +15,75 @@ import { PrivateRoute } from "./PrivateRoute";
 import { Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useAuth, useVideo } from "./Contexts";
 import { APIURL } from "./Utilities";
 
 export default function App() {
-  const { isLoggedIn, currentUserId } = useAuth();
+  const { userToken } = useAuth();
   const {
     state: { playlists },
     dispatch
   } = useVideo();
-  console.log("App js playlista rea...", playlists);
+  console.log("App js playlists are...", playlists);
   useEffect(() => {
-    if (isLoggedIn) {
+    if (userToken) {
       (async function () {
         try {
-          console.log({ isLoggedIn });
-
           const {
-            data: { likedVideos, watchLaterVideos, watchHistoryVideos },
+            data: { likedVideos },
             status
           } = await axios({
             method: "GET",
-            url: `${APIURL}/users/${currentUserId}`
+            url: `${APIURL}/likedVideos`
           });
 
-          console.log(
-            "GET whole arrays...",
-            likedVideos,
-            watchHistoryVideos,
-            watchLaterVideos
-          );
           if (status === 200) {
             dispatch({ type: "GET_LIKED_VIDEOS", payload: likedVideos });
+          }
+        } catch (error) {
+          console.log("GET req error is", error);
+        }
+      })();
+      (async function () {
+        try {
+          const {
+            data: { watchLaterVideos },
+            status
+          } = await axios({
+            method: "GET",
+            url: `${APIURL}/watchLater`
+          });
+
+          if (status === 200) {
             dispatch({
               type: "GET_WATCH_LATER_VIDEOS",
               payload: watchLaterVideos
             });
+          }
+        } catch (error) {
+          console.log("GET req error is", error);
+        }
+      })();
+      (async function () {
+        try {
+          const {
+            data: { watchHistoryVideos },
+            status
+          } = await axios({
+            method: "GET",
+            url: `${APIURL}/watchHistory`
+          });
+
+          if (status === 200) {
             dispatch({
-              type: "GET_HISTORY_VIDEOS",
+              type: "GET_WATCH_HISTORY_VIDEOS",
               payload: watchHistoryVideos
             });
           }
-        } catch (err) {
-          console.log("GET req error is", err);
+        } catch (error) {
+          console.log("GET req error is", error);
         }
       })();
 
@@ -68,7 +92,7 @@ export default function App() {
           const {
             data: { playlists },
             status
-          } = await axios.get(`${APIURL}/users/${currentUserId}/playlists`);
+          } = await axios.get(`${APIURL}/playlists`);
           if (status === 200) {
             dispatch({ type: "GET_PLAYLISTS", payload: playlists });
           }
@@ -77,7 +101,7 @@ export default function App() {
         }
       })();
     }
-  }, [isLoggedIn]);
+  }, [userToken]);
 
   useEffect(() => {
     (async function () {

@@ -22,7 +22,7 @@ export const VideoPlayer = () => {
     dispatch
   } = useVideo();
 
-  const { currentUserId } = useAuth();
+  const { userToken } = useAuth();
 
   useEffect(() => {
     (async function () {
@@ -40,11 +40,17 @@ export const VideoPlayer = () => {
 
   const addOrRemoveLikedVideos = async () => {
     try {
-      console.log("tryng to like video..", currentUserId);
-      const res = await axios.post(`${APIURL}/likedVideos`, {
-        userId: currentUserId,
-        videoId: videoId
+      const res = await axios({
+        method: "POST",
+        url: `${APIURL}/likedVideos`,
+        data: {
+          videoId: videoId
+        }
+        // headers: {
+        //   userToken: userToken
+        // }
       });
+
       if (res.status === 201) {
         dispatch({ type: "GET_LIKED_VIDEOS", payload: res.data.likedVideos });
       }
@@ -55,11 +61,17 @@ export const VideoPlayer = () => {
   };
   const addOrRemoveWatchLater = async () => {
     try {
-      console.log("tryng to like video..", currentUserId);
-      const res = await axios.post(`${APIURL}/watchLater`, {
-        userId: currentUserId,
-        videoId: videoId
+      const res = await axios({
+        method: "POST",
+        url: `${APIURL}/watchLater`,
+        data: {
+          videoId: videoId
+        }
+        // headers: {
+        //   userToken: userToken
+        // }
       });
+
       if (res.status === 201) {
         dispatch({
           type: "GET_WATCH_LATER_VIDEOS",
@@ -93,8 +105,9 @@ export const VideoPlayer = () => {
                     if (!checkIfAlreadyPresent(historyVideos, videoId)) {
                       addOrRemoveWatchHistory({
                         videoId,
-                        currentUserId,
-                        dispatch
+
+                        dispatch,
+                        userToken
                       });
                     }
                   }}

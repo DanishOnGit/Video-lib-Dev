@@ -4,14 +4,23 @@ import { APIURL } from "./apiurl";
 export const addOrRemovePlaylist = async ({
   dispatch,
   playlistId,
-  videoId
+  videoId,
+  userToken
 }) => {
   try {
     const {
       data: { playlist }
-    } = await axios.post(`${APIURL}/playlists/${playlistId}/videos`, {
-      videoId
+    } = await axios({
+      method: "POST",
+      url: `${APIURL}/playlists/${playlistId}/videos`,
+      data: {
+        videoId
+      }
+      // headers: {
+      //   userToken: userToken
+      // }
     });
+
     console.log("playlist is...", playlist);
     dispatch({ type: "UPDATE_PLAYLIST", payload: playlist });
   } catch (err) {

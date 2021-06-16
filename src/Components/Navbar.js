@@ -1,7 +1,7 @@
 import { useAuth } from "../Contexts";
 import { NavLink } from "react-router-dom";
 export const Navbar = () => {
-  const { isLoggedIn, logoutHandler, currentUserId } = useAuth();
+  const { userToken, logoutHandler } = useAuth();
   return (
     <div>
       <nav className="nav-wrapper-3">
@@ -51,7 +51,7 @@ export const Navbar = () => {
                   onClick={() => logoutHandler()}
                   className="btn btn-outline-primary"
                 >
-                  {isLoggedIn ? "Logout" : "Login"}
+                  {userToken ? "Logout" : "Login"}
                 </button>
               </li>
             </NavLink>

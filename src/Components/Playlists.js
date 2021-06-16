@@ -8,12 +8,15 @@ const PlaylistCard = ({ playlist }) => {
   const [listHeading, setListHeading] = useState(playlist.listName);
   const [editMode, setEditMode] = useState(false);
   const { dispatch } = useVideo();
-
   const deletePlaylist = async () => {
     try {
       const {
         data: { playlist: playlistFromResponse }
-      } = await axios.delete(`${APIURL}/playlists/${playlist._id}`);
+      } = await axios({
+        method: "DELETE",
+        url: `${APIURL}/playlists/${playlist._id}`
+      });
+
       dispatch({ type: "DELETE_PLAYLIST", payload: playlistFromResponse._id });
     } catch (err) {
       console.log(err);
@@ -24,9 +27,17 @@ const PlaylistCard = ({ playlist }) => {
     try {
       const {
         data: { playlist: playlistFromResponse }
-      } = await axios.post(`${APIURL}/playlists/${playlist._id}`, {
-        listName: listHeading
+      } = await axios({
+        method: "POST",
+        url: `${APIURL}/playlists/${playlist._id}`,
+        data: {
+          listName: listHeading
+        }
+        // headers: {
+        //   userToken: userToken
+        // }
       });
+
       dispatch({ type: "UPDATE_PLAYLIST", payload: playlistFromResponse });
 
       setEditMode(false);

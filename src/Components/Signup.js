@@ -30,7 +30,6 @@ export const Signup = () => {
         });
       }
       navigate("/login");
-      console.log("singup res is ..", res);
     } catch (err) {
       if (axios.isAxiosError) {
         toast.error("Email already exists!", {

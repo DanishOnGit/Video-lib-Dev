@@ -1,14 +1,12 @@
-import { useAuth, useVideo } from "../Contexts";
+import { useVideo } from "../Contexts";
 import { Link } from "react-router-dom";
-import axios from "axios";
-import { addOrRemoveWatchHistory, APIURL } from "../Utilities";
+import { addOrRemoveWatchHistory } from "../Utilities";
 
 export const WatchHistory = () => {
   const {
     state: { historyVideos },
     dispatch
   } = useVideo();
-  const { currentUserId } = useAuth();
 
   return (
     <>
@@ -30,7 +28,6 @@ export const WatchHistory = () => {
               <button
                 onClick={() =>
                   addOrRemoveWatchHistory({
-                    currentUserId,
                     videoId: videoId._id,
                     dispatch
                   })

@@ -1,6 +1,5 @@
 import { NavLink, Link } from "react-router-dom";
 import { useVideo } from "../Contexts";
-import { allVideos } from "../Database";
 
 export const Home = () => {
   const {
@@ -49,8 +48,12 @@ export const Home = () => {
       <main className="home-wrapper__main">
         {videos.map((item) => {
           return (
-            <Link to={`/video/${item._id}`} className="video-item-link pointer">
-              <div className="video-item" key={item._id}>
+            <Link
+              to={`/video/${item._id}`}
+              key={item._id}
+              className="video-item-link pointer"
+            >
+              <div className="video-item">
                 <img
                   className="thumbnail-img"
                   src={item.thumbnail}
@@ -58,9 +61,6 @@ export const Home = () => {
                 />
 
                 <div className="video-description">
-                  {/* <div className="avatar-wrapper-small">
-                  <img className="avatar-small" src={item.avatar} alt="avatar" />
-                </div> */}
                   <h4 className="video-title">{item.videoTitle}</h4>
                   <p className="small description">{item.channelName}</p>
                   <p className="small description">{item.level}</p>

@@ -9,9 +9,9 @@ export const NotesForm = ({ videoRef }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [notes, setNotes] = useState([]);
-  const { currentUserId, isLoggedIn } = useAuth();
+  const { isLoggedIn, userToken } = useAuth();
   const { videoId } = useParams();
-  console.log("notes are...", notes);
+
   useEffect(() => {
     if (isLoggedIn) {
       (async function () {
@@ -21,7 +21,10 @@ export const NotesForm = ({ videoRef }) => {
           } = await axios({
             method: "GET",
             url: `${APIURL}/notes`,
-            headers: { userId: currentUserId, videoId: videoId }
+            headers: {
+              Authorization: userToken,
+              videoId
+            }
           });
           setNotes(notes);
         } catch (err) {
@@ -47,13 +50,17 @@ export const NotesForm = ({ videoRef }) => {
         const time = convertTimeToString(videoRef.current.getCurrentTime());
         const {
           data: { note }
-        } = await axios.post(`${APIURL}/notes`, {
-          title,
-          description,
-          userId: currentUserId,
-          videoId: videoId,
-          notedAt: time
+        } = await axios({
+          method: "POST",
+          url: `${APIURL}/notes`,
+          data: {
+            title,
+            description,
+            videoId: videoId,
+            notedAt: time
+          }
         });
+
         setNotes((notes) => notes.concat(note));
         setTitle("");
         setDescription("");

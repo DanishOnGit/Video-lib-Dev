@@ -1,43 +1,47 @@
 import { createContext, useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { APIURL } from "../Utilities";
+import {
+  APIURL,
+  setupAuthExceptionHandler,
+  setupAuthHeaderForServiceCalls
+} from "../Utilities";
 import { useVideo } from "./VideoContext";
 import { toast } from "react-toastify";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [currentUserId, setCurrentUserId] = useState(null);
+  const token = JSON.parse(localStorage?.getItem("userToken")) || {
+    authToken: null
+  };
+
+  setupAuthHeaderForServiceCalls(token?.authToken);
+
+  const [userToken, setUserToken] = useState(token?.authToken);
+
   const navigate = useNavigate();
   const { dispatch } = useVideo();
 
   useEffect(() => {
-    const result = JSON.parse(localStorage?.getItem("login"));
-    result?.loginStatus && setIsLoggedIn(true);
-
-    const currUser = JSON.parse(localStorage?.getItem("userId"));
-    console.log({ currUser });
-
-    currUser?.currentUserId && setCurrentUserId(currUser.currentUserId);
+    setupAuthExceptionHandler(logoutHandler, navigate);
   }, []);
 
   const loginWithCredentials = async (email, password) => {
     try {
       console.log("Trying to log in...");
       const {
-        data: { userId },
+        data: { token },
         status
       } = await axios({
         method: "POST",
         url: `${APIURL}/users/authenticate`,
         headers: { email: email, password: password }
       });
-      console.log("Authentication response is...", userId);
+      console.log({ token });
       if (status === 200) {
-        setCurrentUserId(userId);
-        setIsLoggedIn(true);
+        setUserToken(token);
+        setupAuthHeaderForServiceCalls(token);
         toast.success("Login successfull !", {
           position: "top-right",
           autoClose: 2000,
@@ -47,10 +51,10 @@ export const AuthProvider = ({ children }) => {
           draggable: true,
           progress: undefined
         });
-        localStorage?.setItem("login", JSON.stringify({ loginStatus: true }));
+
         localStorage?.setItem(
-          "userId",
-          JSON.stringify({ currentUserId: userId })
+          "userToken",
+          JSON.stringify({ authToken: token })
         );
 
         return status;
@@ -70,9 +74,8 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logoutHandler = () => {
-    localStorage?.removeItem("login");
-    localStorage?.removeItem("userId");
-    setIsLoggedIn(false);
+    localStorage?.removeItem("userToken");
+    setupAuthHeaderForServiceCalls(null);
     dispatch({ type: "RESET_STATES" });
     toast.info("Logged out successfully !", {
       position: "top-right",
@@ -83,11 +86,15 @@ export const AuthProvider = ({ children }) => {
       draggable: true,
       progress: undefined
     });
-    navigate("/");
+    navigate("/login");
   };
   return (
     <AuthContext.Provider
-      value={{ loginWithCredentials, logoutHandler, isLoggedIn, currentUserId }}
+      value={{
+        loginWithCredentials,
+        logoutHandler,
+        userToken
+      }}
     >
       {children}
     </AuthContext.Provider>
