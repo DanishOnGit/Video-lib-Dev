@@ -46,15 +46,11 @@ export const VideoPlayer = () => {
         data: {
           videoId: videoId
         }
-        // headers: {
-        //   userToken: userToken
-        // }
       });
 
       if (res.status === 201) {
         dispatch({ type: "GET_LIKED_VIDEOS", payload: res.data.likedVideos });
       }
-      console.log("POST likedvideos,", res);
     } catch (err) {
       console.log("err liking video", err);
     }
@@ -67,9 +63,6 @@ export const VideoPlayer = () => {
         data: {
           videoId: videoId
         }
-        // headers: {
-        //   userToken: userToken
-        // }
       });
 
       if (res.status === 201) {
@@ -78,7 +71,6 @@ export const VideoPlayer = () => {
           payload: res.data.watchLaterVideos
         });
       }
-      console.log("POST watchlater", res);
     } catch (err) {
       console.log("err liking video", err);
     }

@@ -22,11 +22,7 @@ import { APIURL } from "./Utilities";
 
 export default function App() {
   const { userToken } = useAuth();
-  const {
-    state: { playlists },
-    dispatch
-  } = useVideo();
-  console.log("App js playlists are...", playlists);
+  const { dispatch } = useVideo();
   useEffect(() => {
     if (userToken) {
       (async function () {

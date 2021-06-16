@@ -29,7 +29,6 @@ export const AuthProvider = ({ children }) => {
 
   const loginWithCredentials = async (email, password) => {
     try {
-      console.log("Trying to log in...");
       const {
         data: { token },
         status
@@ -38,7 +37,7 @@ export const AuthProvider = ({ children }) => {
         url: `${APIURL}/users/authenticate`,
         headers: { email: email, password: password }
       });
-      console.log({ token });
+
       if (status === 200) {
         setUserToken(token);
         setupAuthHeaderForServiceCalls(token);

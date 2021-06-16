@@ -13,9 +13,9 @@ export const Login = () => {
 
   const loginHandler = async (e) => {
     e.preventDefault();
-    console.log("state is..", state);
+
     const status = await loginWithCredentials(userEmail, password);
-    console.log("login status is...", status);
+
     status && navigate(state?.from ? state.from : "/");
   };
 

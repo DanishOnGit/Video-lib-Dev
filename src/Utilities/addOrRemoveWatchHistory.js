@@ -11,9 +11,6 @@ export const addOrRemoveWatchHistory = async ({ videoId, dispatch }) => {
       data: {
         videoId: videoId
       }
-      // headers: {
-      //   userToken: userToken
-      // }
     });
 
     dispatch({ type: "GET_HISTORY_VIDEOS", payload: watchHistoryVideos });

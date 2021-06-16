@@ -33,9 +33,6 @@ const PlaylistCard = ({ playlist }) => {
         data: {
           listName: listHeading
         }
-        // headers: {
-        //   userToken: userToken
-        // }
       });
 
       dispatch({ type: "UPDATE_PLAYLIST", payload: playlistFromResponse });

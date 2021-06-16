@@ -16,9 +16,6 @@ export const addOrRemovePlaylist = async ({
       data: {
         videoId
       }
-      // headers: {
-      //   userToken: userToken
-      // }
     });
 
     console.log("playlist is...", playlist);
