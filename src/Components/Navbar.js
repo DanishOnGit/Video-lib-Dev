@@ -49,7 +49,7 @@ export const Navbar = () => {
               <li className="pointer">
                 <button
                   onClick={() => logoutHandler()}
-                  className="btn btn-outline-primary"
+                  className="btn btn-primary padded"
                 >
                   {userToken ? "Logout" : "Login"}
                 </button>

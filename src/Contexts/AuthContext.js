@@ -74,17 +74,20 @@ export const AuthProvider = ({ children }) => {
 
   const logoutHandler = () => {
     localStorage?.removeItem("userToken");
+    setUserToken(null);
     setupAuthHeaderForServiceCalls(null);
     dispatch({ type: "RESET_STATES" });
-    toast.info("Logged out successfully !", {
-      position: "top-right",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined
-    });
+    if (userToken) {
+      toast.info("Logged out successfully !", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined
+      });
+    }
     navigate("/login");
   };
   return (

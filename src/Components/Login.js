@@ -29,14 +29,14 @@ export const Login = () => {
         <h2 className="login-form__heading">Login</h2>
 
         <div className="login-form__fields-wrapper">
-          <label>userEmail</label>
+          <label>Email</label>
           <div className="input-field-wrapper">
             <input
               value={userEmail}
               onChange={(e) => setUserEmail(e.target.value)}
               className="userEmail-input"
               type="text"
-              placeholder="userEmail"
+              placeholder="Email"
               required
             />
           </div>

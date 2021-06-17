@@ -1,4 +1,5 @@
 import "./styles.css";
+import Loader from "react-loader-spinner";
 import {
   Navbar,
   Home,
@@ -13,7 +14,7 @@ import {
 } from "./Components";
 import { PrivateRoute } from "./PrivateRoute";
 import { Routes, Route } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -21,12 +22,14 @@ import { useAuth, useVideo } from "./Contexts";
 import { APIURL } from "./Utilities";
 
 export default function App() {
+  const [loading, setLoading] = useState(false);
   const { userToken } = useAuth();
   const { dispatch } = useVideo();
   useEffect(() => {
     if (userToken) {
       (async function () {
         try {
+          setLoading(true);
           const {
             data: { likedVideos },
             status
@@ -37,8 +40,10 @@ export default function App() {
 
           if (status === 200) {
             dispatch({ type: "GET_LIKED_VIDEOS", payload: likedVideos });
+            setLoading(false);
           }
         } catch (error) {
+          setLoading(false);
           console.log("GET req error is", error);
         }
       })();
@@ -116,17 +121,21 @@ export default function App() {
     <div className="App">
       <Navbar />
       <ToastContainer />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/video/:videoId" element={<VideoPlayer />} />
-        <PrivateRoute path="/likedVideos" element={<LikedVideos />} />
-        <PrivateRoute path="/watchLaterVideos" element={<WatchLater />} />
-        <PrivateRoute path="/watchHistory" element={<WatchHistory />} />
-        <PrivateRoute path="/playlists" element={<Playlists />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/*" element={<PageNotFound />} />
-      </Routes>
+      {loading ? (
+        <Loader type="ThreeDots" color="#fc452e" height={80} width={80} />
+      ) : (
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/video/:videoId" element={<VideoPlayer />} />
+          <PrivateRoute path="/likedVideos" element={<LikedVideos />} />
+          <PrivateRoute path="/watchLaterVideos" element={<WatchLater />} />
+          <PrivateRoute path="/watchHistory" element={<WatchHistory />} />
+          <PrivateRoute path="/playlists" element={<Playlists />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/*" element={<PageNotFound />} />
+        </Routes>
+      )}
     </div>
   );
 }

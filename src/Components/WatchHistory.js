@@ -36,20 +36,18 @@ export const WatchHistory = () => {
               >
                 <i className="fas fa-times"></i>
               </button>
-              <Link to={`/video/${videoId._id}`}>
-                <div className="video-description">
-                  <div className="avatar-wrapper-small">
-                    <img
-                      className="avatar-small"
-                      src={videoId.avatar}
-                      alt="avatar"
-                    />
-                  </div>
-                  <h4>{videoId.videoTitle}</h4>
-                  <p className="small">{videoId.channelName}</p>
-                  <p>{videoId.level}</p>
+              <div className="video-description">
+                <div className="avatar-wrapper-small">
+                  <img
+                    className="avatar-small"
+                    src={videoId.avatar}
+                    alt="avatar"
+                  />
                 </div>
-              </Link>
+                <h4>{videoId.videoTitle}</h4>
+                <p className="small">{videoId.channelName}</p>
+                <p>{videoId.level}</p>
+              </div>
             </div>
           );
         })}

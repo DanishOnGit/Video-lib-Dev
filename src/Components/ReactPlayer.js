@@ -9,6 +9,7 @@ import {
   checkIfAlreadyPresent,
   toggleColor
 } from "../Utilities";
+import { toast } from "react-toastify";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 
@@ -97,7 +98,6 @@ export const VideoPlayer = () => {
                     if (!checkIfAlreadyPresent(historyVideos, videoId)) {
                       addOrRemoveWatchHistory({
                         videoId,
-
                         dispatch,
                         userToken
                       });
@@ -111,20 +111,56 @@ export const VideoPlayer = () => {
                 <ul className="list-items-flex list-non-bullet spaced">
                   <li>
                     <i
-                      onClick={() => addOrRemoveLikedVideos()}
+                      onClick={() =>
+                        userToken
+                          ? addOrRemoveLikedVideos()
+                          : toast.error("Log in to perform this action", {
+                              position: "top-right",
+                              autoClose: 2000,
+                              hideProgressBar: false,
+                              closeOnClick: true,
+                              pauseOnHover: false,
+                              draggable: true,
+                              progress: undefined
+                            })
+                      }
                       className="fas fa-thumbs-up pointer"
                       style={{ color: toggleColor(likedVideos, videoId) }}
                     ></i>
                   </li>
                   <li>
                     <i
-                      onClick={() => setDisplay("block")}
+                      onClick={() =>
+                        userToken
+                          ? setDisplay("block")
+                          : toast.error("Log in to perform this action", {
+                              position: "top-right",
+                              autoClose: 2000,
+                              hideProgressBar: false,
+                              closeOnClick: true,
+                              pauseOnHover: false,
+                              draggable: true,
+                              progress: undefined
+                            })
+                      }
                       className="fas fa-list pointer"
                     ></i>
                   </li>
                   <li>
                     <i
-                      onClick={() => addOrRemoveWatchLater()}
+                      onClick={() =>
+                        userToken
+                          ? addOrRemoveWatchLater()
+                          : toast.error("Log in to perform this action", {
+                              position: "top-right",
+                              autoClose: 2000,
+                              hideProgressBar: false,
+                              closeOnClick: true,
+                              pauseOnHover: false,
+                              draggable: true,
+                              progress: undefined
+                            })
+                      }
                       className="fas fa-clock pointer"
                       style={{ color: toggleColor(watchLaterVideos, videoId) }}
                     ></i>

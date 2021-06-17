@@ -13,7 +13,7 @@ export const addOrRemoveWatchHistory = async ({ videoId, dispatch }) => {
       }
     });
 
-    dispatch({ type: "GET_HISTORY_VIDEOS", payload: watchHistoryVideos });
+    dispatch({ type: "GET_WATCH_HISTORY_VIDEOS", payload: watchHistoryVideos });
   } catch (err) {
     console.log("err adding to watch history...", err);
   }

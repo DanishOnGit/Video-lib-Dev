@@ -18,7 +18,7 @@ export const videoDataReducer = (state, action) => {
         watchLaterVideos: action.payload
       };
     }
-    case "GET_HISTORY_VIDEOS": {
+    case "GET_WATCH_HISTORY_VIDEOS": {
       return {
         ...state,
         historyVideos: action.payload

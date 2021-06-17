@@ -63,19 +63,19 @@ export const Signup = () => {
             onChange={(e) => setUserName(e.target.value)}
             className="userEmail-input"
             type="text"
-            placeholder="Your Name"
+            placeholder="John"
             required
           />
         </div>
         <br />
-        <label>userEmail</label>
+        <label>Email</label>
         <div className="input-field-wrapper">
           <input
             value={userEmail}
             onChange={(e) => setUserEmail(e.target.value)}
             className="userEmail-input"
             type="text"
-            placeholder="userEmail"
+            placeholder="xyz@example.com"
             required
           />
         </div>
@@ -87,7 +87,7 @@ export const Signup = () => {
             onChange={(e) => setPassword(e.target.value)}
             className="input-field-2"
             type={inputType}
-            placeholder="Enter password"
+            placeholder="Your password"
             required
           />
           <button
@@ -104,7 +104,7 @@ export const Signup = () => {
           <input
             className="input-field-2 plain-input"
             type="password"
-            placeholder="Enter password"
+            placeholder="Re-enter password"
             required
           />
         </div>

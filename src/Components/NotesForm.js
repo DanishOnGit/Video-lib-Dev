@@ -9,14 +9,16 @@ export const NotesForm = ({ videoRef }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [notes, setNotes] = useState([]);
-  const { isLoggedIn, userToken } = useAuth();
+  const { userToken } = useAuth();
   const { videoId } = useParams();
-
+  console.log({ userToken });
   useEffect(() => {
-    if (isLoggedIn) {
+    console.log("in notes form useffect");
+    if (userToken) {
       (async function () {
         try {
           const {
+            status,
             data: { notes }
           } = await axios({
             method: "GET",
@@ -26,13 +28,16 @@ export const NotesForm = ({ videoRef }) => {
               videoId
             }
           });
-          setNotes(notes);
+          if (status === 200) {
+            console.log("Setting notes...");
+            setNotes(notes);
+          }
         } catch (err) {
           console.log(err);
         }
       })();
     }
-  }, [isLoggedIn]);
+  }, [userToken]);
 
   const convertTimeToString = (time) => {
     time = Number(time);
@@ -98,17 +103,14 @@ export const NotesForm = ({ videoRef }) => {
         <button onClick={saveNote} className="btn btn-primary save">
           Save
         </button>
-        <button
-          onClick={discardNote}
-          className="btn btn-outline-secondary discard"
-        >
+        <button onClick={discardNote} className="btn btn-secondary discard">
           Discard
         </button>
       </form>
 
       <ul className="list-non-bullet">
         {notes.map((item) => (
-          <li>
+          <li key={item._id}>
             <NotesCard item={item} setNotes={setNotes} />
           </li>
         ))}
