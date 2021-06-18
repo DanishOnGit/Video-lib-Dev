@@ -4,7 +4,7 @@ import { useAuth } from "../Contexts";
 
 export const Login = () => {
   const navigate = useNavigate();
-  const state = useLocation();
+  const { state } = useLocation();
   const [userEmail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
   const [inputType, setInputType] = useState("password");

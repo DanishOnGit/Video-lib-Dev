@@ -56,7 +56,7 @@ export const AuthProvider = ({ children }) => {
           JSON.stringify({ authToken: token })
         );
 
-        return status;
+        return true;
       }
     } catch (err) {
       toast.error("Error logging In!", {
