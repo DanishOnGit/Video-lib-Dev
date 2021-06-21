@@ -23,6 +23,7 @@ import { APIURL } from "./Utilities";
 
 export default function App() {
   const [loading, setLoading] = useState(false);
+  const [searchText, setSearchText] = useState("");
   const { userToken } = useAuth();
   const { dispatch } = useVideo();
   useEffect(() => {
@@ -119,13 +120,13 @@ export default function App() {
 
   return (
     <div className="App">
-      <Navbar />
+      <Navbar searchText={searchText} setSearchText={setSearchText} />
       <ToastContainer />
       {loading ? (
         <Loader type="ThreeDots" color="#fc452e" height={80} width={80} />
       ) : (
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home searchText={searchText} />} />
           <Route path="/video/:videoId" element={<VideoPlayer />} />
           <PrivateRoute path="/likedVideos" element={<LikedVideos />} />
           <PrivateRoute path="/watchLaterVideos" element={<WatchLater />} />

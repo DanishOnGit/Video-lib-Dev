@@ -1,6 +1,7 @@
 import { useAuth } from "../Contexts";
 import { NavLink } from "react-router-dom";
-export const Navbar = () => {
+import { Searchbar } from "./SearchBar";
+export const Navbar = ({ searchText, setSearchText }) => {
   const { userToken, logoutHandler } = useAuth();
   return (
     <div>
@@ -15,6 +16,12 @@ export const Navbar = () => {
             className="list-items-flex list-non-bullet responsive-list"
             id="list-addon-1"
           >
+            <li className="pointer">
+              <Searchbar
+                searchText={searchText}
+                setSearchText={setSearchText}
+              />
+            </li>
             <NavLink to="/" className="side-nav-link">
               <li className="pointer">
                 <i className="fas fa-home pointer"></i>

@@ -87,7 +87,10 @@ body {
 }
 
 /* Home page */
-
+.bgColorSearchInput {
+  background-color: var(--dark-grey);
+  color: var(--white-color);
+}
 .home-wrapper {
   width: 100vw;
   display: grid;
@@ -116,6 +119,7 @@ body {
 }
 .home-wrapper__aside {
   width: 100%;
+  height: auto;
   color: var(--white-color);
   background-color: var(--darker-grey);
   padding: 1rem;
@@ -149,6 +153,7 @@ body {
   }
   .home-wrapper__aside {
     position: static;
+    height: 100vh;
   }
 
   .home-wrapper__aside__list li {
@@ -176,6 +181,7 @@ body {
   }
   .home-wrapper__aside {
     position: static;
+    height: 100vh;
   }
   .list-item-title {
     display: inline;

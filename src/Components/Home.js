@@ -1,10 +1,20 @@
 import { NavLink, Link } from "react-router-dom";
 import { useVideo } from "../Contexts";
 
-export const Home = () => {
+export const Home = ({ searchText }) => {
   const {
     state: { videos }
   } = useVideo();
+
+  const getSearchItems = (videos) => {
+    return videos.filter((item) => {
+      return searchText
+        ? item.videoTitle.toLowerCase().includes(searchText.toLowerCase())
+        : item;
+    });
+  };
+  const filteredVideos = getSearchItems(videos);
+
   return (
     <div className="home-wrapper">
       <aside className="home-wrapper__aside">
@@ -46,7 +56,7 @@ export const Home = () => {
         </ul>
       </aside>
       <main className="home-wrapper__main">
-        {videos.map((item) => {
+        {filteredVideos.map((item) => {
           return (
             <Link
               to={`/video/${item._id}`}
