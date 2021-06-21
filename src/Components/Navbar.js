@@ -1,6 +1,7 @@
 import { useAuth } from "../Contexts";
 import { NavLink } from "react-router-dom";
 import { Searchbar } from "./SearchBar";
+
 export const Navbar = ({ searchText, setSearchText }) => {
   const { userToken, logoutHandler } = useAuth();
   return (

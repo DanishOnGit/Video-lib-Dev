@@ -5,7 +5,7 @@ export { WatchLater } from "./WatchLater";
 export { WatchHistory } from "./WatchHistory";
 export { Playlists } from "./Playlists";
 export { VideoPlayer } from "./ReactPlayer";
-export { SearchBar } from "./SearchBar";
+export { Searchbar } from "./SearchBar";
 export { PlaylistModal } from "./PlaylistModal";
 export { NotesForm } from "./NotesForm";
 export { Signup } from "./Signup";
