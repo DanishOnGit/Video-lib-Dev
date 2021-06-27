@@ -1,7 +1,7 @@
 import { useAuth } from "../Contexts";
 import { NavLink } from "react-router-dom";
 import { Searchbar } from "./SearchBar";
-
+import logo from "../images/logo-white.svg";
 export const Navbar = ({ searchText, setSearchText }) => {
   const { userToken, logoutHandler } = useAuth();
   return (
@@ -9,7 +9,9 @@ export const Navbar = ({ searchText, setSearchText }) => {
       <nav className="nav-wrapper-3">
         <div className="logoAndList-wrapper">
           <NavLink to="/" className="side-nav-link">
-            <div className="brand">One-View</div>
+            <div className="brand">
+              <img src={logo} alt="logo" height="80px" width="80px" />
+            </div>
           </NavLink>
         </div>
         <div>
