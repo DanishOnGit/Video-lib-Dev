@@ -10,7 +10,7 @@ export const Navbar = ({ searchText, setSearchText }) => {
         <div className="logoAndList-wrapper">
           <NavLink to="/" className="side-nav-link">
             <div className="brand">
-              <img src={logo} alt="logo" height="80px" width="80px" />
+              <img src={logo} alt="logo" height="50px" width="80px" />
             </div>
           </NavLink>
         </div>
