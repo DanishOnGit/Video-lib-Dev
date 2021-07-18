@@ -11,7 +11,7 @@ export const Login = () => {
 
   const { loginWithCredentials } = useAuth();
 
-  const loginHandler = async (e) => {
+  const loginHandler = async (e, userEmail, password) => {
     e.preventDefault();
 
     const status = await loginWithCredentials(userEmail, password);
@@ -75,6 +75,19 @@ export const Login = () => {
               Signup{" "}
             </span>
           </p>
+          <p style={{ margin: "0.5rem 0" }}>------------OR-------------</p>
+          <button
+            className="btn btn-outline-primary stretch"
+            style={{ borderWidth: "1px", marginTop: "0.5rem" }}
+            onClick={(e) => {
+              e.preventDefault();
+              setUserEmail("tester@gmail.com");
+              setPassword("Tester@123");
+              loginHandler(e, "tester@gmail.com", "Tester@123");
+            }}
+          >
+            Use Test Credentials
+          </button>
         </div>
       </form>
     </div>
