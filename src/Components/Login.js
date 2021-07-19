@@ -75,7 +75,9 @@ export const Login = () => {
               Signup{" "}
             </span>
           </p>
-          <p style={{ margin: "0.5rem 0" }}>------------OR-------------</p>
+          <p style={{ margin: "0.5rem 0", textAlign: "center" }}>
+            ---------OR----------
+          </p>
           <button
             className="btn btn-outline-primary stretch"
             style={{ borderWidth: "1px", marginTop: "0.5rem" }}

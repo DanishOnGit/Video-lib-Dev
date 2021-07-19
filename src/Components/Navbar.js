@@ -14,7 +14,10 @@ export const Navbar = ({ searchText, setSearchText }) => {
             </div>
           </NavLink>
         </div>
-        <div>
+        <div className="mobile-search">
+          <Searchbar searchText={searchText} setSearchText={setSearchText} />
+        </div>
+        <div className="nav-listItems-wrapper">
           <ul
             className="list-items-flex list-non-bullet responsive-list"
             id="list-addon-1"
@@ -67,6 +70,14 @@ export const Navbar = ({ searchText, setSearchText }) => {
             </NavLink>
           </ul>
         </div>
+        <NavLink to="/login" className="side-nav-link mobile-view-login-btn">
+          <button
+            onClick={() => logoutHandler()}
+            className="btn btn-primary padded"
+          >
+            {userToken ? "Logout" : "Login"}
+          </button>
+        </NavLink>
       </nav>
     </div>
   );

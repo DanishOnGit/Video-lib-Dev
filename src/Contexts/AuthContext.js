@@ -59,7 +59,7 @@ export const AuthProvider = ({ children }) => {
         return true;
       }
     } catch (err) {
-      toast.error("Error logging In!", {
+      toast.error("Incorrect credentials!", {
         position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,
@@ -68,7 +68,7 @@ export const AuthProvider = ({ children }) => {
         draggable: true,
         progress: undefined
       });
-      console.log("error logging in...", err);
+      console.log("error logging in", err);
     }
   };
 
