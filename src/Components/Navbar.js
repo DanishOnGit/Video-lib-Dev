@@ -2,8 +2,12 @@ import { useAuth } from "../Contexts";
 import { NavLink } from "react-router-dom";
 import { Searchbar } from "./SearchBar";
 import logo from "../images/logo-white.svg";
+import { SearchBarModal } from "./SearchBarModal";
+import { useState } from "react";
 export const Navbar = ({ searchText, setSearchText }) => {
+  const [searchModal, setSearchModal] = useState("none");
   const { userToken, logoutHandler } = useAuth();
+
   return (
     <div>
       <nav className="nav-wrapper-3">
@@ -14,9 +18,19 @@ export const Navbar = ({ searchText, setSearchText }) => {
             </div>
           </NavLink>
         </div>
-        <div className="mobile-search">
-          <Searchbar searchText={searchText} setSearchText={setSearchText} />
+        <div className="search-modal-icon">
+          <SearchBarModal
+            searchModal={searchModal}
+            setSearchModal={setSearchModal}
+            searchText={searchText}
+            setSearchText={setSearchText}
+          />
+          <i
+            className="fas fa-search"
+            onClick={() => setSearchModal("block")}
+          ></i>
         </div>
+
         <div className="nav-listItems-wrapper">
           <ul
             className="list-items-flex list-non-bullet responsive-list"

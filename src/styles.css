@@ -97,6 +97,10 @@ body {
   background-color: var(--very-dark-grey);
 }
 
+.nav-wrapper-3 .search-wrapper {
+  display: block;
+}
+
 /* Home page */
 .bgColorSearchInput {
   background-color: var(--dark-grey);
@@ -110,6 +114,24 @@ body {
 }
 .mobile-search {
   display: flex;
+}
+.search-modal {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 3px;
+  padding: 1rem;
+  z-index: 99;
+  background-color: var(--light-grey);
+}
+.search-modal-icon {
+  display: block;
+}
+@media screen and (min-width: 556px) {
+  .search-modal-icon {
+    display: none;
+  }
 }
 .home-wrapper {
   display: grid;
@@ -131,6 +153,7 @@ body {
 .video-item {
   display: flex;
   flex-direction: column;
+  align-self: stretch;
   text-align: left;
   padding: 0.5rem;
   color: var(--white-color);
