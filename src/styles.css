@@ -33,6 +33,11 @@
 .empty-state {
   color: var(--light-grey);
 }
+.page-heading {
+  color: var(--white-color);
+  text-align: center;
+  margin: 1rem 0;
+}
 .mg-1 {
   margin: 0 0.5rem;
 }

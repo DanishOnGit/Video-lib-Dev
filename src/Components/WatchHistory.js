@@ -10,13 +10,14 @@ export const WatchHistory = () => {
 
   return (
     <>
+      <h1 className="page-heading">Watch History</h1>
       {historyVideos.length === 0 && (
         <h1 className="empty-state">No videos seen yet!</h1>
       )}
       <div className="history-videos-wrapper">
         {historyVideos.map(({ videoId }) => {
           return (
-            <div className="video-item" key={videoId._id}>
+            <div className="video-item pos-rel" key={videoId._id}>
               <Link to={`/video/${videoId._id}`}>
                 {" "}
                 <img
@@ -32,7 +33,7 @@ export const WatchHistory = () => {
                     dispatch
                   })
                 }
-                className="btn btn-link"
+                className="btn btn-link remove-btn"
               >
                 <i className="fas fa-times"></i>
               </button>

@@ -133,6 +133,7 @@ export const Playlists = () => {
   } = useVideo();
   return (
     <>
+      <h1 className="page-heading">Playlists</h1>
       {playlists.length === 0 && (
         <h1 className="empty-state">No Playlists added!</h1>
       )}
