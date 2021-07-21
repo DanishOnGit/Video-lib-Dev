@@ -69,6 +69,9 @@
   color: var(--pri-color);
   transition: 200ms ease;
 }
+.side-nav-link.no-hover :hover {
+  color: white;
+}
 body::-webkit-scrollbar {
   width: 0.75rem;
 }
@@ -442,15 +445,11 @@ body {
 
 /* Signup/Login page */
 .login-form {
-  max-width: 30rem;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  max-width: fit-content;
   padding: 2rem;
   background-color: transparent;
   text-align: left;
-  margin: auto;
+  margin: 2rem auto;
   border: 2px solid var(--black-color);
 }
 .login-form__fields-wrapper {

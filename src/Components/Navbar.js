@@ -72,7 +72,7 @@ export const Navbar = ({ searchText, setSearchText }) => {
               </li>
             </NavLink>
 
-            <NavLink to="/login" className="side-nav-link">
+            <NavLink to="/login" className="side-nav-link no-hover">
               <li className="pointer">
                 <button
                   onClick={() => logoutHandler()}

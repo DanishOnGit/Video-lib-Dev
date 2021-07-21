@@ -68,7 +68,7 @@ export const Login = () => {
             {" "}
             Login{" "}
           </button>
-          <p className="small signup">
+          <p className="small signup" style={{ textAlign: "center" }}>
             Don't have an account?{" "}
             <span onClick={() => navigate("/signup")} className="signup-link">
               {" "}
