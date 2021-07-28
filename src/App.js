@@ -108,11 +108,14 @@ export default function App() {
   useEffect(() => {
     (async function () {
       try {
+        setLoading(true);
         const {
           data: { videos }
         } = await axios.get(`${APIURL}/videos`);
+        setLoading(false);
         dispatch({ type: "GET_VIDEOS", payload: videos });
       } catch (err) {
+        setLoading(false);
         console.log("error getting videos", err);
       }
     })();
