@@ -1,6 +1,10 @@
+@import url("https://react-loader-spinner/dist/loader/css/react-spinner-loader.css");
+
 .App {
   font-family: sans-serif;
   text-align: center;
+  display: grid;
+  grid-template-columns: 1fr;
 }
 :root {
   --pri-color: #fc452e;
@@ -19,8 +23,20 @@
 .pointer {
   cursor: pointer;
 }
+.brand {
+  color: var(--pri-color);
+}
+.padded {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
 .empty-state {
   color: var(--light-grey);
+}
+.page-heading {
+  color: var(--white-color);
+  text-align: center;
+  margin: 1rem 0;
 }
 .mg-1 {
   margin: 0 0.5rem;
@@ -29,6 +45,10 @@
   text-align: left;
   top: 30%;
 }
+.video-description {
+  flex-grow: 1;
+}
+
 .description {
   color: var(--light-grey);
 }
@@ -48,6 +68,9 @@
 .side-nav-link :hover {
   color: var(--pri-color);
   transition: 200ms ease;
+}
+.side-nav-link.no-hover :hover {
+  color: white;
 }
 body::-webkit-scrollbar {
   width: 0.75rem;
@@ -77,14 +100,48 @@ body {
   background-color: var(--very-dark-grey);
 }
 
-/* Home page */
+.nav-wrapper-3 .search-wrapper {
+  display: block;
+}
 
+/* Home page */
+.bgColorSearchInput {
+  background-color: var(--dark-grey);
+  color: var(--white-color);
+}
+.nav-listItems-wrapper {
+  display: none;
+}
+.mobile-view-login-btn {
+  display: block;
+}
+.mobile-search {
+  display: flex;
+}
+.search-modal {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 3px;
+  padding: 1rem;
+  z-index: 99;
+  background-color: var(--light-grey);
+}
+.search-modal-icon {
+  display: block;
+}
+@media screen and (min-width: 556px) {
+  .search-modal-icon {
+    display: none;
+  }
+}
 .home-wrapper {
-  width: 100vw;
   display: grid;
   grid-template-columns: 1fr;
 }
 .nav-wrapper-3 {
+  width: 100%;
   padding: 1.75rem 2rem;
   font-weight: bolder;
   background-color: var(--dark-grey);
@@ -97,6 +154,9 @@ body {
   row-gap: 1rem;
 }
 .video-item {
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
   text-align: left;
   padding: 0.5rem;
   color: var(--white-color);
@@ -132,6 +192,18 @@ body {
     grid-template-columns: repeat(2, 1fr);
     row-gap: 1rem;
   }
+  .home-wrapper__aside {
+    width: auto;
+  }
+  .nav-listItems-wrapper {
+    display: block;
+  }
+  .mobile-view-login-btn {
+    display: none;
+  }
+  .mobile-search {
+    display: none;
+  }
 }
 @media screen and (min-width: 768px) {
   .home-wrapper {
@@ -140,6 +212,7 @@ body {
   }
   .home-wrapper__aside {
     position: static;
+    min-height: 100vh;
   }
 
   .home-wrapper__aside__list li {
@@ -167,6 +240,7 @@ body {
   }
   .home-wrapper__aside {
     position: static;
+    min-height: 100vh;
   }
   .list-item-title {
     display: inline;
@@ -194,17 +268,21 @@ body {
   margin: auto;
 }
 .notes-form-wrapper {
-  /* background-color: pink; */
   width: 100%;
   height: 16rem;
   overflow-y: scroll;
+}
+.form-heading {
+  color: var(--white-color);
+}
+.timestamp {
+  text-align: left;
+  color: var(--white-color);
 }
 .note-form {
   display: flex;
   flex-direction: column;
   padding: 0.5rem;
-
-  /* background-color: pink; */
 }
 .note-card-btns-wrapper {
   display: flex;
@@ -221,7 +299,10 @@ body {
   margin: 0.5rem 0;
   padding: 0.5rem;
   border: 1px solid var(--dark-grey);
+  background-color: inherit;
   border-radius: 2px;
+  text-align: left;
+  color: var(--white-color);
 }
 .save,
 .discard {
@@ -269,7 +350,6 @@ body {
     width: 80vw;
   }
   .react-player-wrapper {
-    background-color: red;
     width: 50vw;
     height: 20rem;
   }
@@ -284,6 +364,8 @@ body {
   display: grid;
   grid-template-columns: 1fr;
   row-gap: 0.5rem;
+  color: var(--white-color);
+  text-align: left;
 }
 @media screen and (min-width: 556px) {
   .liked-videos-wrapper,
@@ -359,4 +441,56 @@ body {
     grid-template-columns: repeat(6, 1fr);
     column-gap: 0.5rem;
   }
+}
+
+/* Signup/Login page */
+.login-form {
+  max-width: fit-content;
+  padding: 2rem;
+  background-color: transparent;
+  text-align: left;
+  margin: 2rem auto;
+  border: 2px solid var(--black-color);
+}
+.login-form__fields-wrapper {
+  color: var(--white-color);
+}
+.userEmail-input {
+  width: 100%;
+  padding: 0.3rem 0.25rem;
+  border-radius: 5px;
+}
+.login-form__heading {
+  margin-bottom: 1rem;
+  text-align: center;
+  color: var(--pri-color);
+}
+.username-input {
+  padding: 0.35rem;
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid var(--grey-color);
+  outline-color: var(--pri-color);
+}
+.input-field-2 {
+  outline-color: var(--pri-color);
+}
+
+.stretch {
+  width: 100%;
+  margin-top: 2rem;
+}
+.signup {
+  margin-top: 0.5rem;
+}
+.signup-link {
+  color: var(--pri-color);
+  cursor: pointer;
+}
+.plain-input {
+  border: 1px solid var(--grey-color);
+  border-radius: 4px;
+}
+.form-error {
+  color: red;
 }

@@ -1,7 +1,20 @@
 import { NavLink, Link } from "react-router-dom";
-import { allVideos } from "../Database";
+import { useVideo } from "../Contexts";
 
-export const Home = () => {
+export const Home = ({ searchText }) => {
+  const {
+    state: { videos }
+  } = useVideo();
+
+  const getSearchItems = (videos) => {
+    return videos.filter((item) => {
+      return searchText
+        ? item.videoTitle.toLowerCase().includes(searchText.toLowerCase())
+        : item;
+    });
+  };
+  const filteredVideos = getSearchItems(videos);
+
   return (
     <div className="home-wrapper">
       <aside className="home-wrapper__aside">
@@ -13,44 +26,44 @@ export const Home = () => {
             </li>
           </NavLink>
 
-          <NavLink
-            to="/watchHistory"
-            className="side-nav-link"
-            
-          >
+          <NavLink to="/watchHistory" className="side-nav-link">
             <li className="pointer">
-              <i class="fas fa-history pointer"></i>
+              <i className="fas fa-history pointer"></i>
               <span className="list-item-title">History</span>
             </li>
           </NavLink>
 
           <NavLink to="/playlists" className="side-nav-link">
             <li className="pointer">
-              <i class="fas fa-list pointer"></i>
+              <i className="fas fa-list pointer"></i>
               <span className="list-item-title">Playlists</span>
             </li>
           </NavLink>
 
           <NavLink to="/watchLaterVideos" className="side-nav-link">
             <li className="pointer">
-              <i class="fas fa-clock pointer"></i>
+              <i className="fas fa-clock pointer"></i>
               <span className="list-item-title">Watch later</span>
             </li>
           </NavLink>
 
           <NavLink to="/likedVideos" className="side-nav-link">
             <li className="pointer">
-              <i class="fas fa-thumbs-up pointer"></i>
+              <i className="fas fa-thumbs-up pointer"></i>
               <span className="list-item-title">Liked videos</span>
             </li>
           </NavLink>
         </ul>
       </aside>
       <main className="home-wrapper__main">
-        {allVideos.map((item) => {
+        {filteredVideos.map((item) => {
           return (
-            <Link to={`/video/${item.id}`} className="video-item-link pointer">
-              <div className="video-item" key={item.id}>
+            <Link
+              to={`/video/${item._id}`}
+              key={item._id}
+              className="video-item-link pointer"
+            >
+              <div className="video-item">
                 <img
                   className="thumbnail-img"
                   src={item.thumbnail}
@@ -58,9 +71,6 @@ export const Home = () => {
                 />
 
                 <div className="video-description">
-                  {/* <div class="avatar-wrapper-small">
-                  <img class="avatar-small" src={item.avatar} alt="avatar" />
-                </div> */}
                   <h4 className="video-title">{item.videoTitle}</h4>
                   <p className="small description">{item.channelName}</p>
                   <p className="small description">{item.level}</p>
