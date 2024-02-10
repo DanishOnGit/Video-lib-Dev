@@ -1,1 +1,1 @@
-export const APIURL = "https://shuttlearc-api.herokuapp.com";
+export const APIURL = "https://mybackendservice.onrender.com";
